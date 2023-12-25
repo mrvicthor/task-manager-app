@@ -16,11 +16,14 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
   return (
     <html lang="en">
       <body>
         <section className="grid-container">
-          <Sidebar />
+          <Sidebar isDark={isDarkTheme} toggleTheme={toggleTheme} />
           <section>
             <Header />
             {children}
