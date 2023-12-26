@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import StoreProvider from "./StoreProvider";
 import type { Metadata } from "next";
 // import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Header, Sidebar } from "@/components";
@@ -15,21 +14,19 @@ interface LayoutProps {
 // };
 
 export default function RootLayout({ children }: LayoutProps) {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
   return (
     <html lang="en">
-      <body>
-        <section className="grid-container">
-          <Sidebar isDark={isDarkTheme} toggleTheme={toggleTheme} />
-          <section>
-            <Header />
-            {children}
+      <StoreProvider>
+        <body>
+          <section className="grid-container">
+            <Sidebar />
+            <section>
+              <Header />
+              {children}
+            </section>
           </section>
-        </section>
-      </body>
+        </body>
+      </StoreProvider>
     </html>
   );
 }

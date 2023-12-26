@@ -1,10 +1,6 @@
 import Image from "next/image";
 
-interface SidebarProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-const Sidebar = ({ isDark, toggleTheme }: SidebarProps) => {
+const Sidebar = () => {
   return (
     <section className="min-h-screen">
       <div className="px-8 pt-4 flex gap-x-4 items-center">
