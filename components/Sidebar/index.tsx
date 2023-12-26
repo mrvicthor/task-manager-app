@@ -1,27 +1,42 @@
 "use client";
-import { useAppSelector } from "@/app/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/app/lib/hooks";
+import { toggleTheme } from "@/app/lib/features/theme/themeSlice";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const Sidebar = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+  const dispatch = useAppDispatch();
+
+  const handleToggle = () => {
+    dispatch(toggleTheme());
+  };
+
+  const spring = {
+    type: "spring",
+    stiffness: 700,
+    damping: 30,
+  };
+
   return (
     <section
       className={`${
-        lighTheme ? "bg-[#ffffff]" : "bg-[#3e3f4e]"
-      } min-h-screen border-r border-[#e4ebfa]`}
+        lighTheme
+          ? "bg-[#ffffff] border-[#e4ebfa]"
+          : "bg-[#2b2c37] border-[#3e3f4e]"
+      } min-h-screen border-r`}
     >
-      <div className="px-8 pt-4 flex gap-x-4 items-center">
+      <div className="px-8 pt-6 flex items-center">
         <div>
           <Image
-            src="./assets/logo-mobile.svg"
+            src={`${
+              lighTheme ? "./assets/logo-dark.svg" : "./assets/logo-light.svg"
+            }`}
             alt="kanban-logo"
-            width={20}
-            height={20}
+            width={100}
+            height={100}
             priority
           />
-        </div>
-        <div>
-          <p className="font-bold text-2xl">Kanban</p>
         </div>
       </div>
       <div className="mt-5">
@@ -95,6 +110,57 @@ const Sidebar = () => {
             </div>
           </li>
         </ul>
+        <div
+          className={`${
+            lighTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
+          } fixed bottom-24 left-6  h-[2.4rem] w-[15.6875rem] rounded`}
+        >
+          <div className="h-full w-full flex items-center justify-center space-x-4">
+            <div>
+              <Image
+                src="./assets/icon-light-theme.svg"
+                height={12}
+                width={12}
+                alt="sun-icon"
+              />
+            </div>
+            <div
+              onClick={handleToggle}
+              className={`${
+                lighTheme ? "justify-start" : "justify-end"
+              } w-[2.5rem] h-[1.25rem] bg-[#635fc7] rounded-full flex items-center px-1 cursor-pointer`}
+            >
+              <motion.div
+                className="bg-[#ffffff] h-4 w-4 rounded-full"
+                transition={spring}
+                layout
+              />
+            </div>
+            <div>
+              <Image
+                src="./assets/icon-dark-theme.svg"
+                height={12}
+                width={12}
+                alt="moon-icon"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex left-6 items-center space-x-4 bottom-14 fixed cursor-pointer">
+          <div>
+            <Image
+              src="./assets/icon-hide-sidebar.svg"
+              alt="hide-icon"
+              height={12}
+              width={12}
+            />
+          </div>
+          <div>
+            <p className="capitalize text-[#828fa3] text-[15px]">
+              hide sidebar
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
