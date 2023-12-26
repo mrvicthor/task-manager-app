@@ -1,15 +1,21 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/app/lib/hooks";
 import { toggleTheme } from "@/app/lib/features/theme/themeSlice";
+import { toggleSidebar } from "@/app/lib/features/sidebar/sidebarSlice";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 const Sidebar = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+  const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const dispatch = useAppDispatch();
 
   const handleToggle = () => {
     dispatch(toggleTheme());
+  };
+
+  const handleSidebar = () => {
+    dispatch(toggleSidebar());
   };
 
   const spring = {
@@ -17,14 +23,15 @@ const Sidebar = () => {
     stiffness: 700,
     damping: 30,
   };
-
   return (
     <section
       className={`${
         lighTheme
           ? "bg-[#ffffff] border-[#e4ebfa]"
           : "bg-[#2b2c37] border-[#3e3f4e]"
-      } min-h-screen border-r`}
+      } min-h-screen fixed w-[18.75rem] border-r ${
+        showSidebar ? "translate-x-0" : "-translate-x-[18.75rem]"
+      } sidebar`}
     >
       <div className="px-8 pt-6 flex items-center">
         <div>
@@ -146,7 +153,10 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className="flex left-6 items-center space-x-4 bottom-14 fixed cursor-pointer">
+        <div
+          onClick={handleSidebar}
+          className="flex left-6 items-center space-x-4 bottom-14 fixed cursor-pointer"
+        >
           <div>
             <Image
               src="./assets/icon-hide-sidebar.svg"

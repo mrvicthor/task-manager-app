@@ -1,12 +1,10 @@
 "use client";
-import { useRef } from "react";
-import { useAppSelector, useAppDispatch, useAppStore } from "@/app/lib/hooks";
-import { toggleTheme } from "@/app/lib/features/theme/themeSlice";
+import { useAppSelector } from "@/app/lib/hooks";
 import { Button } from "..";
 import Image from "next/image";
 const Header = () => {
-  const store = useAppStore();
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+  const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   return (
     <header
       className={`${
@@ -34,7 +32,11 @@ const Header = () => {
             lighTheme ? "bg-[#e4ebfa]" : "bg-[#3e3f4e]"
           } w-[1px] h-[4rem]`}
         />
-        <div>
+        <div
+          className={`${
+            showSidebar ? "translate-x-[144px]" : "translate-x-0"
+          } sidebar`}
+        >
           <h1 className="font-bold text-lg">Platform Launch</h1>
         </div>
         <div className="ml-auto">

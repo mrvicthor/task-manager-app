@@ -1,14 +1,37 @@
 "use client";
 import Image from "next/image";
-import { useAppSelector } from "./lib/hooks";
+import { useAppSelector, useAppDispatch } from "./lib/hooks";
+import { toggleSidebar } from "./lib/features/sidebar/sidebarSlice";
 
 export default function Home() {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
+  const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
+  const dispatch = useAppDispatch();
+
+  const handleSidebar = () => dispatch(toggleSidebar());
   return (
     <main
-      className={`${lightTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"} min-h-screen`}
+      className={`${
+        lightTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
+      } min-h-screen ${
+        showSidebar ? "translate-x-[18.75rem]" : "translate-x-0"
+      } sidebar`}
     >
       <p>Task Manager</p>
+      {!showSidebar && (
+        <div
+          onClick={handleSidebar}
+          className="bg-[#635fc7] h-[2.4rem] w-[56px] flex items-center justify-center fixed bottom-24 rounded-r-full cursor-pointer"
+        >
+          <Image
+            src="./assets/icon-show-sidebar.svg"
+            height={16}
+            width={16}
+            alt="show sidebar"
+          />
+        </div>
+      )}
+
       {/* <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;

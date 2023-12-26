@@ -11,8 +11,7 @@
 }
 
 @layer components {
-  .grid-container {
-    display: grid;
-    grid-template-columns: 18.75rem 1fr;
+  .sidebar {
+    transition: transform 500ms ease-in-out;
   }
 }

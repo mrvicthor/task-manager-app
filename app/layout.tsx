@@ -18,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <StoreProvider>
         <body>
-          <section className="grid-container">
+          <section className="">
             <Sidebar />
             <section>
               <Header />
