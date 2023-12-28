@@ -15,8 +15,8 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html lang="en">
-      <StoreProvider>
+    <StoreProvider>
+      <html lang="en">
         <body>
           <section className="">
             <Sidebar />
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps) {
             </section>
           </section>
         </body>
-      </StoreProvider>
-    </html>
+      </html>
+    </StoreProvider>
   );
 }

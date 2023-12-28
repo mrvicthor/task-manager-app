@@ -1,6 +1,6 @@
 "use client";
 import { useAppSelector } from "@/app/lib/hooks";
-import { Button, Boards } from "..";
+import { Button, BoardTitle } from "..";
 import Image from "next/image";
 const Header = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
@@ -22,7 +22,7 @@ const Header = () => {
             width={24}
           />
         </div>
-        <Boards />
+        <BoardTitle />
         <div className="py-4 md:flex gap-x-4 items-center pr-6 hidden">
           <div>
             <Image

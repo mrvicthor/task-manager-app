@@ -1,21 +1,24 @@
-import Image from "next/image";
-import { useAppSelector } from "@/app/lib/hooks";
-const Boards = () => {
-  const boardName = useAppSelector((state) => state.board.name);
+// import prisma from "@/app/lib/prisma";
+const getBoards = async () => {
+  const res = await fetch("http://localhost:3000/api/boards", {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
+  return res.json();
+};
+
+const Boards = async () => {
+  const boards = await getBoards();
+  //   const boards = await prisma.board.findMany();
+  console.log(boards, "testing board");
   return (
-    <div className="md:hidden">
-      <div className="flex items-center justify-center space-x-2">
-        <h2 className="text-lg font-bold capitalize">{boardName}</h2>
-        <div>
-          <Image
-            src="./assets/icon-chevron-down.svg"
-            alt="down-logo"
-            height={12}
-            width={12}
-          />
-        </div>
-      </div>
-    </div>
+    <section>
+      <ul>
+        <li>Board</li>
+      </ul>
+    </section>
   );
 };
 
