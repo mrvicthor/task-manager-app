@@ -1,4 +1,5 @@
 // import prisma from "@/app/lib/prisma";
+import { Board } from "@prisma/client";
 const getBoards = async () => {
   const res = await fetch("http://localhost:3000/api/boards", {
     next: { revalidate: 3600 },
@@ -11,12 +12,13 @@ const getBoards = async () => {
 
 const Boards = async () => {
   const boards = await getBoards();
-  //   const boards = await prisma.board.findMany();
-  console.log(boards, "testing board");
+
   return (
     <section>
       <ul>
-        <li>Board</li>
+        {boards.map((board: Board) => (
+          <li key={board.id}>{board.name}</li>
+        ))}
       </ul>
     </section>
   );

@@ -1,5 +1,6 @@
+"use-client";
 import Image from "next/image";
-import { useAppSelector } from "@/app/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 const BoardTitle = () => {
   const boardName = useAppSelector((state) => state.board.name);
   return (

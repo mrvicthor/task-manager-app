@@ -1,5 +1,5 @@
 "use client";
-import { useAppSelector } from "@/app/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import { Button, BoardTitle } from "..";
 import Image from "next/image";
 const Header = () => {
@@ -11,15 +11,20 @@ const Header = () => {
         lighTheme
           ? "bg-white border-[#e4ebfa]"
           : "bg-[#2b2c37] border-[#3e3f4e]"
-      } border-b`}
+      } border-b fixed w-full top-0 z-40`}
     >
       <section className=" px-4 flex items-center gap-x-4">
-        <div className="py-4 md:hidden">
+        <div className="my-4 relative h-6 w-6 md:hidden">
           <Image
             src="./assets/logo-mobile.svg"
             alt="kanban-logo-mobile"
-            height={24}
-            width={24}
+            fill
+            sizes="100vw"
+            // height={24}
+            // width={24}
+            style={{
+              objectFit: "cover", // cover, contain, none
+            }}
           />
         </div>
         <BoardTitle />
