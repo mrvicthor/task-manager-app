@@ -41,7 +41,7 @@ const Sidebar = () => {
       </div>
       <div className="mt-5">
         <h2 className="px-8 pt-4 uppercase text-xs text-[#828fa3] font-bold">
-          all boards
+          all boards (8)
         </h2>
         <ul className="mt-5 flex flex-col space-y-[1.8125rem]">
           <li className="flex items-center gap-x-4 px-8">
