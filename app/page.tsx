@@ -1,9 +1,12 @@
 import { Boards, Toggle, MainScreen } from "@/components";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
     <MainScreen>
-      <Boards />
+      <Suspense fallback={<p>Loading feed...</p>}>
+        <Boards />
+      </Suspense>
       <Toggle />
     </MainScreen>
   );
