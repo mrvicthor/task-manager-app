@@ -9,7 +9,7 @@ const Boards = async () => {
     <section>
       <ul>
         {boards.map((board: Board) => (
-          <li key={board.id}>{board.name}</li>
+          <li key={board.id}>{board.name}s</li>
         ))}
       </ul>
     </section>
