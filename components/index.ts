@@ -1,7 +1,9 @@
 import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
+import Columns from "./Columns";
 import Header from "./Header";
+import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
 import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
@@ -11,7 +13,9 @@ export {
   Boards,
   BoardTitle,
   Button,
+  Columns,
   Header,
+  LogoToggle,
   MainScreen,
   Sidebar,
   ThemeToggle,

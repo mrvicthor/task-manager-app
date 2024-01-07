@@ -1,4 +1,7 @@
+"use client";
 import { useAppSelector } from "@/lib/hooks";
+import { LogoToggle, ThemeToggle } from "..";
+import { HideSidebar } from "./hideSidebar";
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -17,7 +20,17 @@ export const Wrapper = ({ children }: WrapperProps) => {
         showSidebar ? "translate-x-0" : "-translate-x-[18.75rem]"
       } sidebar z-50 top-0`}
     >
-      {children}
+      <div className=" flex items-center">
+        <LogoToggle />
+      </div>
+      <div className="mt-5">
+        <h2 className="px-8 pt-4 uppercase text-xs text-[#828fa3] font-bold">
+          all boards (8)
+        </h2>
+        {children}
+        <ThemeToggle />
+        <HideSidebar />
+      </div>
     </aside>
   );
 };
