@@ -1,29 +1,18 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { toggleTheme } from "@/lib/features/theme/themeSlice";
 import { toggleSidebar } from "@/lib/features/sidebar/sidebarSlice";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Wrapper } from "./wrapper";
+import { ThemeToggle } from "..";
 
 const Sidebar = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
-  const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const dispatch = useAppDispatch();
-
-  const handleToggle = () => {
-    dispatch(toggleTheme());
-  };
 
   const handleSidebar = () => {
     dispatch(toggleSidebar());
   };
 
-  const spring = {
-    type: "spring",
-    stiffness: 700,
-    damping: 30,
-  };
   return (
     <Wrapper>
       <div className="px-8 pt-6 flex items-center">
@@ -110,42 +99,7 @@ const Sidebar = () => {
             </div>
           </li>
         </ul>
-        <div
-          className={`${
-            lighTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
-          } fixed bottom-24 left-6  h-[2.4rem] w-[15.6875rem] rounded`}
-        >
-          <div className="h-full w-full flex items-center justify-center space-x-4">
-            <div>
-              <Image
-                src="./assets/icon-light-theme.svg"
-                height={12}
-                width={12}
-                alt="sun-icon"
-              />
-            </div>
-            <div
-              onClick={handleToggle}
-              className={`${
-                lighTheme ? "justify-start" : "justify-end"
-              } w-[2.5rem] h-[1.25rem] bg-[#635fc7] rounded-full flex items-center px-1 cursor-pointer`}
-            >
-              <motion.div
-                className="bg-[#ffffff] h-4 w-4 rounded-full"
-                transition={spring}
-                layout
-              />
-            </div>
-            <div>
-              <Image
-                src="./assets/icon-dark-theme.svg"
-                height={12}
-                width={12}
-                alt="moon-icon"
-              />
-            </div>
-          </div>
-        </div>
+        <ThemeToggle />
         <div
           onClick={handleSidebar}
           className="flex left-6 items-center space-x-4 bottom-14 fixed cursor-pointer"

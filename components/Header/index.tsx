@@ -13,7 +13,7 @@ const Header = () => {
           : "bg-[#2b2c37] border-[#3e3f4e]"
       } border-b fixed w-full top-0 z-40`}
     >
-      <section className=" px-4 flex items-center gap-x-4">
+      <section className=" px-4 flex items-center gap-x-4 h-16">
         <div className="my-4 relative h-6 w-6 md:hidden">
           <Image
             src="./assets/logo-mobile.svg"

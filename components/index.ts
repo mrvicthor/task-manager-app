@@ -4,6 +4,16 @@ import Button from "./Button";
 import Header from "./Header";
 import { MainScreen } from "./MainScreen";
 import Sidebar from "./Sidebar";
+import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 
-export { Boards, BoardTitle, Button, Header, MainScreen, Sidebar, Toggle };
+export {
+  Boards,
+  BoardTitle,
+  Button,
+  Header,
+  MainScreen,
+  Sidebar,
+  ThemeToggle,
+  Toggle,
+};
