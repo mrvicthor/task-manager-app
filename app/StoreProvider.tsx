@@ -17,7 +17,7 @@ export default function StoreProvider({
   if (!storeRef.current) {
     storeRef.current = makeStore();
     storeRef.current.dispatch(toggleTheme());
-    storeRef.current.dispatch(setBoardSelected("platform launch"));
+    storeRef.current.dispatch(setBoardSelected("Platform Launch"));
   }
   return <Provider store={storeRef.current}>{children}</Provider>;
 }

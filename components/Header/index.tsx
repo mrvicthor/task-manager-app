@@ -5,6 +5,7 @@ import Image from "next/image";
 const Header = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
+  const boardName = useAppSelector((state) => state.board.name);
   return (
     <header
       className={`${
@@ -51,7 +52,7 @@ const Header = () => {
             showSidebar ? "translate-x-[144px]" : "translate-x-0"
           } sidebar hidden md:block`}
         >
-          <h1 className="font-bold text-lg">Platform Launch</h1>
+          <h1 className="font-bold text-lg">{boardName}</h1>
         </div>
         <div className="hidden md:block ml-auto">
           <Button />

@@ -15,28 +15,6 @@ const Boards = async () => {
       <ul className="mt-5 flex flex-col space-y-[1.8125rem] font-bold">
         {boards.map((board: Board) => (
           <NavList key={board.id} board={board} />
-          // <li key={board.id}>
-          //   <Link
-          //     href={`/${board.name}`}
-          //     className={`${
-          //       pathname === `/${board.name}` ? "active" : ""
-          //     } flex items-center gap-x-4 px-8 cursor-pointer`}
-          //   >
-          //     <div>
-          //       <Image
-          //         src="./assets/icon-board.svg"
-          //         alt="board-icon"
-          //         height={16}
-          //         width={16}
-          //       />
-          //     </div>
-          //     <div>
-          //       <p className="font-bold capitalize text-[#828fa3] text-[15px]">
-          //         {board.name}
-          //       </p>
-          //     </div>
-          //   </Link>
-          // </li>
         ))}
         <li className="flex items-center gap-x-4 px-8 cursor-pointer">
           <div>

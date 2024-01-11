@@ -15,6 +15,9 @@
     transition: transform 500ms ease-in-out;
   }
   .active {
-    color: red;
+    background-color: #635fc7;
+    padding-block: 14px;
+    width: 276px;
+    border-radius: 0px 100px 100px 0px;
   }
 }
