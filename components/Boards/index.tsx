@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Board } from "@prisma/client";
+import { NavList } from "..";
 import prisma from "@/lib/prisma";
 
 const Boards = async () => {
@@ -7,26 +9,34 @@ const Boards = async () => {
 
   return (
     <section>
-      <ul className="mt-5 flex flex-col space-y-[1.8125rem]">
+      <h2 className="px-8 pt-4 uppercase text-xs text-[#828fa3]">
+        all boards ({boards.length})
+      </h2>
+      <ul className="mt-5 flex flex-col space-y-[1.8125rem] font-bold">
         {boards.map((board: Board) => (
-          <li
-            key={board.id}
-            className="flex items-center gap-x-4 px-8 cursor-pointer"
-          >
-            <div>
-              <Image
-                src="./assets/icon-board.svg"
-                alt="board-icon"
-                height={16}
-                width={16}
-              />
-            </div>
-            <div>
-              <p className="font-bold capitalize text-[#828fa3] text-[15px]">
-                {board.name}
-              </p>
-            </div>
-          </li>
+          <NavList key={board.id} board={board} />
+          // <li key={board.id}>
+          //   <Link
+          //     href={`/${board.name}`}
+          //     className={`${
+          //       pathname === `/${board.name}` ? "active" : ""
+          //     } flex items-center gap-x-4 px-8 cursor-pointer`}
+          //   >
+          //     <div>
+          //       <Image
+          //         src="./assets/icon-board.svg"
+          //         alt="board-icon"
+          //         height={16}
+          //         width={16}
+          //       />
+          //     </div>
+          //     <div>
+          //       <p className="font-bold capitalize text-[#828fa3] text-[15px]">
+          //         {board.name}
+          //       </p>
+          //     </div>
+          //   </Link>
+          // </li>
         ))}
         <li className="flex items-center gap-x-4 px-8 cursor-pointer">
           <div>

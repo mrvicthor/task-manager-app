@@ -24,9 +24,6 @@ export const Wrapper = ({ children }: WrapperProps) => {
         <LogoToggle />
       </div>
       <div className="mt-5">
-        <h2 className="px-8 pt-4 uppercase text-xs text-[#828fa3] font-bold">
-          all boards (8)
-        </h2>
         {children}
         <ThemeToggle />
         <HideSidebar />

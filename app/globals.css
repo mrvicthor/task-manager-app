@@ -14,4 +14,7 @@
   .sidebar {
     transition: transform 500ms ease-in-out;
   }
+  .active {
+    color: red;
+  }
 }

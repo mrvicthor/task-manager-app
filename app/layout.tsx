@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <StoreProvider>
-      <html lang="en">
-        <body suppressHydrationWarning={true} className="relative">
+    <html lang="en">
+      <body suppressHydrationWarning={true} className="relative">
+        <StoreProvider>
           <section className="">
             <Sidebar />
             <section>
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: LayoutProps) {
               {children}
             </section>
           </section>
-        </body>
-      </html>
-    </StoreProvider>
+        </StoreProvider>
+      </body>
+    </html>
   );
 }
