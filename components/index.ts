@@ -5,6 +5,7 @@ import Columns from "./Columns";
 import Header from "./Header";
 import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
+import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
 import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
@@ -18,6 +19,7 @@ export {
   Header,
   LogoToggle,
   MainScreen,
+  MobileMenu,
   NavList,
   Sidebar,
   ThemeToggle,

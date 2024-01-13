@@ -4,11 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface BoardState {
   name: string;
   showBoard: boolean;
+  showMobileBoard: boolean;
 }
 
 const initialState: BoardState = {
   name: "",
   showBoard: false,
+  showMobileBoard: false,
 };
 
 export const BoardSlice = createSlice({
@@ -21,8 +23,12 @@ export const BoardSlice = createSlice({
     setBoardSelected: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
+    toggleMobileBoard: (state) => {
+      state.showMobileBoard = !state.showMobileBoard;
+    },
   },
 });
 
-export const { toggleBoard, setBoardSelected } = BoardSlice.actions;
+export const { toggleBoard, setBoardSelected, toggleMobileBoard } =
+  BoardSlice.actions;
 export default BoardSlice.reducer;
