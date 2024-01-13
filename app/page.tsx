@@ -1,4 +1,4 @@
-import { Columns, Toggle, MainScreen } from "@/components";
+import { Columns, Toggle, MainScreen, MobileMenu } from "@/components";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -7,6 +7,7 @@ export default function Home() {
       <Suspense fallback={<p>Loading feed...</p>}>
         <Columns />
       </Suspense>
+      <MobileMenu />
       <Toggle />
     </MainScreen>
   );

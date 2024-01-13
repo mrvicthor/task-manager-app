@@ -16,7 +16,9 @@ const NavList = ({ board }: NavProps) => {
     <li
       key={board.id}
       className={`${
-        boardName === `${board.name}` ? "active text-white" : "text-[#828fa3]"
+        boardName === `${board.name}`
+          ? "active text-white w-[240px] l:w-[276px]"
+          : "text-[#828fa3]"
       } flex items-center gap-x-4 px-8 cursor-pointer`}
       onClick={() => dispatch(setBoardSelected(board.name))}
     >

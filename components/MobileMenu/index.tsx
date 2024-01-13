@@ -1,8 +1,11 @@
+import { MobileClientComponent } from "..";
+import { Boards } from "..";
+
 const MobileMenu = () => {
   return (
-    <section>
-      <p>Mobile Menu</p>
-    </section>
+    <MobileClientComponent>
+      <Boards />
+    </MobileClientComponent>
   );
 };
 

@@ -25,7 +25,13 @@ export const Wrapper = ({ children }: WrapperProps) => {
       </div>
       <div className="mt-5">
         {children}
-        <ThemeToggle />
+        <div
+          className={`${
+            lighTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
+          } fixed bottom-24 left-6  h-[2.4rem] w-[15.6875rem] rounded`}
+        >
+          <ThemeToggle />
+        </div>
         <HideSidebar />
       </div>
     </aside>

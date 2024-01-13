@@ -10,6 +10,7 @@ import NavList from "./NavList";
 import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
+import { MobileClientComponent } from "./MobileClient";
 
 export {
   Boards,
@@ -20,6 +21,7 @@ export {
   LogoToggle,
   MainScreen,
   MobileMenu,
+  MobileClientComponent,
   NavList,
   Sidebar,
   ThemeToggle,
