@@ -11,6 +11,7 @@ interface NavProps {
 const NavList = ({ board }: NavProps) => {
   const dispatch = useAppDispatch();
   const boardName = useAppSelector((state) => state.board.name);
+  const lightTheme = useAppSelector((state) => state.theme.lightTheme);
 
   return (
     <li
@@ -35,7 +36,13 @@ const NavList = ({ board }: NavProps) => {
         />
       </div>
       <div>
-        <p className="font-bold capitalize text-[15px]">{board.name}</p>
+        <p
+          className={`${
+            lightTheme ? "text-[#000112]" : "text-white"
+          } font-bold capitalize text-[15px]`}
+        >
+          {board.name}
+        </p>
       </div>
     </li>
   );

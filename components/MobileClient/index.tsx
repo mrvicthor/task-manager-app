@@ -13,7 +13,7 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
   const showMobileMenu = useAppSelector((state) => state.board.showMobileBoard);
   const handleToggleMobileMenu = () => dispatch(toggleMobileBoard());
   return (
-    <section className="">
+    <section>
       {showMobileMenu ? (
         <>
           <div
