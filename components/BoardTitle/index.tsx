@@ -11,10 +11,10 @@ const BoardTitle = () => {
 
   const handleToggleMobileMenu = () => dispatch(toggleMobileBoard());
   return (
-    <div className="md:hidden">
+    <div className="md:hidden" onClick={handleToggleMobileMenu}>
       <div className="flex items-center justify-center space-x-2">
         <h2 className="text-lg font-bold capitalize">{boardName}</h2>
-        <div onClick={handleToggleMobileMenu}>
+        <div>
           <Image
             src={
               showMobileBoard

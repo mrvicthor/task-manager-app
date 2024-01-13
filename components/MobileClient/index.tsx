@@ -1,19 +1,23 @@
 "use client";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { ThemeToggle } from "..";
+import { toggleMobileBoard } from "@/lib/features/board/boardSlice";
 
 interface MobileMenuProps {
   children: React.ReactNode;
 }
 
 export const MobileClientComponent = ({ children }: MobileMenuProps) => {
+  const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showMobileMenu = useAppSelector((state) => state.board.showMobileBoard);
+  const handleToggleMobileMenu = () => dispatch(toggleMobileBoard());
   return (
     <section className="">
       {showMobileMenu ? (
         <>
           <div
+            onClick={handleToggleMobileMenu}
             id="overlay"
             className="fixed bg-[#000] opacity-50 h-full w-screen left-0 right-0 bottom-0 top-0 z-20 cursor-pointer"
           />
