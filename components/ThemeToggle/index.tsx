@@ -21,7 +21,7 @@ const ThemeToggle = () => {
     <div className="h-full w-full flex items-center justify-center space-x-4">
       <div>
         <Image
-          src="./assets/icon-light-theme.svg"
+          src={"/" + "./assets/icon-light-theme.svg"}
           height={12}
           width={12}
           alt="sun-icon"
@@ -41,7 +41,7 @@ const ThemeToggle = () => {
       </div>
       <div>
         <Image
-          src="./assets/icon-dark-theme.svg"
+          src={"/" + "./assets/icon-dark-theme.svg"}
           height={12}
           width={12}
           alt="moon-icon"

@@ -18,7 +18,7 @@ const Boards = async () => {
         <li className="flex items-center gap-x-4 px-8 cursor-pointer">
           <div>
             <Image
-              src="./assets/icon-board-purple.svg"
+              src={"/" + "./assets/icon-board-purple.svg"}
               alt="board-icon"
               height={16}
               width={16}
@@ -26,7 +26,7 @@ const Boards = async () => {
           </div>
           <div className="flex gap-x-[2px]">
             <Image
-              src="./assets/icon-add-purple.svg"
+              src={"/" + "./assets/icon-add-purple.svg"}
               alt="plus-icon"
               width={5}
               height={20}

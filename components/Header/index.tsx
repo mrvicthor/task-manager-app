@@ -2,6 +2,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { Button, BoardTitle } from "..";
 import Image from "next/image";
+import Link from "next/link";
 const Header = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
 
@@ -18,7 +19,7 @@ const Header = () => {
       <section className="px-4 md:px-6 flex items-center gap-x-4 h-16">
         <div className="my-4 relative h-6 w-6 md:hidden">
           <Image
-            src="./assets/logo-mobile.svg"
+            src={"/" + "./assets/logo-mobile.svg"}
             alt="kanban-logo-mobile"
             fill
             sizes="100vw"
@@ -31,9 +32,9 @@ const Header = () => {
         </div>
         <BoardTitle />
         <div className="py-4 md:flex gap-x-4 items-center pr-6 hidden">
-          <div>
+          <Link href="/" className="cursor-pointer">
             <Image
-              src={`${
+              src={`/${
                 lighTheme ? "./assets/logo-dark.svg" : "./assets/logo-light.svg"
               }`}
               alt="kanban-logo"
@@ -41,7 +42,7 @@ const Header = () => {
               height={100}
               priority
             />
-          </div>
+          </Link>
         </div>
         <div
           className={`${
@@ -67,7 +68,7 @@ const Header = () => {
 
         <button className="bg-[#635fc7] opacity-30 h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden">
           <Image
-            src="./assets/icon-add-task-mobile.svg"
+            src={"/" + "./assets/icon-add-task-mobile.svg"}
             alt="add-icon"
             height={16}
             width={16}
@@ -76,7 +77,7 @@ const Header = () => {
 
         <div>
           <Image
-            src="./assets/icon-vertical-ellipsis.svg"
+            src={"/" + "./assets/icon-vertical-ellipsis.svg"}
             alt="vertical-ellipsis"
             height={20}
             width={4}

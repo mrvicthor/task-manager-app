@@ -10,7 +10,7 @@ export default function Home() {
         </section>
       </Suspense>
       <MobileMenu />
-      <Toggle />
+      {/* <Toggle /> */}
     </MainScreen>
   );
 }

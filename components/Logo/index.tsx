@@ -1,12 +1,13 @@
 import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
+import Link from "next/link";
 const LogoToggle = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   return (
     <div className="px-8 pt-6 flex items-center">
-      <div>
+      <Link href="/" className="cursor-pointer">
         <Image
-          src={`${
+          src={`/${
             lighTheme ? "./assets/logo-dark.svg" : "./assets/logo-light.svg"
           }`}
           alt="kanban-logo"
@@ -14,7 +15,7 @@ const LogoToggle = () => {
           height={100}
           priority
         />
-      </div>
+      </Link>
     </div>
   );
 };

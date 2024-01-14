@@ -3,7 +3,7 @@ const Button = () => {
   return (
     <button className=" flex bg-[#635fc7] text-white px-6 py-2 rounded-3xl gap-x-1">
       <Image
-        src="./assets/icon-add-task-mobile.svg"
+        src={"/" + "./assets/icon-add-task-mobile.svg"}
         alt="plus-icon"
         width={5}
         height={20}

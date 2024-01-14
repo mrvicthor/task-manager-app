@@ -14,7 +14,7 @@ export const HideSidebar = () => {
     >
       <div>
         <Image
-          src="./assets/icon-hide-sidebar.svg"
+          src={"/" + "./assets/icon-hide-sidebar.svg"}
           alt="hide-icon"
           height={12}
           width={12}

@@ -24,7 +24,7 @@ const BoardTitle = () => {
         <div>
           <Image
             src={
-              showMobileBoard
+              "/" + showMobileBoard
                 ? "./assets/icon-chevron-up.svg"
                 : "./assets/icon-chevron-down.svg"
             }
