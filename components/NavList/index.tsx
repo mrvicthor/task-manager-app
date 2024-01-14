@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import { Board } from "@prisma/client";
-import { setBoardSelected } from "@/lib/features/board/boardSlice";
+import { setBoardSelected, setBoardId } from "@/lib/features/board/boardSlice";
 
 interface NavProps {
   board: Board;
@@ -20,7 +20,10 @@ const NavList = ({ board }: NavProps) => {
           ? "active text-white w-[240px] l:w-[276px]"
           : "text-[#828fa3]"
       } flex items-center gap-x-4 px-8 cursor-pointer`}
-      onClick={() => dispatch(setBoardSelected(board.name))}
+      onClick={() => {
+        dispatch(setBoardSelected(board.name));
+        dispatch(setBoardId(board.id));
+      }}
     >
       <div>
         <Image
