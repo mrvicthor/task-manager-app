@@ -1,7 +1,7 @@
-const BoardDetails = () => {
+const BoardDetails = ({ params }: { params: { boardId: string } }) => {
   return (
-    <section>
-      <p>board id goes here</p>
+    <section className="mt-16">
+      <p>board id goes here {params.boardId}</p>
     </section>
   );
 };
