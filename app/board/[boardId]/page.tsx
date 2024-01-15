@@ -1,7 +1,19 @@
-const BoardDetails = ({ params }: { params: { boardId: string } }) => {
+import prisma from "@/lib/prisma";
+
+const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
+  const tasks = await prisma.task.findMany({
+    where: {
+      column: {
+        boardId: Number(params?.boardId),
+      },
+    },
+  });
+  console.log(tasks.length);
   return (
     <section className="mt-16">
-      <p>board id goes here {params.boardId}</p>
+      {tasks.map((task) => (
+        <p key={task.id}>{task.title}</p>
+      ))}
     </section>
   );
 };

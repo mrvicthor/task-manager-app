@@ -17,7 +17,7 @@ const Header = () => {
       } border-b fixed w-full top-0 z-40`}
     >
       <section className="px-4 md:px-6 flex items-center gap-x-4 h-16">
-        <div className="my-4 relative h-6 w-6 md:hidden">
+        <Link href="/" className="my-4 relative h-6 w-6 md:hidden">
           <Image
             src={"/" + "./assets/logo-mobile.svg"}
             alt="kanban-logo-mobile"
@@ -29,7 +29,7 @@ const Header = () => {
               objectFit: "cover", // cover, contain, none
             }}
           />
-        </div>
+        </Link>
         <BoardTitle />
         <div className="py-4 md:flex gap-x-4 items-center pr-6 hidden">
           <Link href="/" className="cursor-pointer">

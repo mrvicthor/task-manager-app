@@ -16,7 +16,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
         lighTheme
           ? "bg-[#ffffff] border-[#e4ebfa]"
           : "bg-[#2b2c37] border-[#3e3f4e]"
-      } min-h-screen fixed w-[18.75rem] border-r ${
+      } hidden min-h-screen md:fixed w-[18.75rem] border-r ${
         showSidebar ? "translate-x-0" : "-translate-x-[18.75rem]"
       } sidebar z-50 top-0`}
     >
