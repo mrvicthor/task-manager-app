@@ -8,7 +8,7 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
       },
     },
   });
-  console.log(tasks.length);
+
   return (
     <section className="mt-16">
       {tasks.map((task) => (
