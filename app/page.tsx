@@ -1,4 +1,4 @@
-import { Columns, Toggle, MainScreen, MobileMenu } from "@/components";
+import { Columns, MainScreen } from "@/components";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -9,8 +9,6 @@ export default function Home() {
           <Columns />
         </section>
       </Suspense>
-      <MobileMenu />
-      {/* <Toggle /> */}
     </MainScreen>
   );
 }

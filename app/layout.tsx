@@ -1,7 +1,7 @@
 import StoreProvider from "./StoreProvider";
 import type { Metadata } from "next";
 // import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import { Header, Sidebar, Toggle } from "@/components";
+import { Header, Sidebar, Toggle, MobileMenu } from "@/components";
 import "./globals.css";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -22,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps) {
             <Sidebar />
             <section>
               <Header />
+              <MobileMenu />
               {children}
               <Toggle />
             </section>

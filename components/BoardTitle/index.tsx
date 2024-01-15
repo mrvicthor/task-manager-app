@@ -23,11 +23,11 @@ const BoardTitle = () => {
         </h2>
         <div>
           <Image
-            src={
-              "/" + showMobileBoard
+            src={`/${
+              showMobileBoard
                 ? "./assets/icon-chevron-up.svg"
                 : "./assets/icon-chevron-down.svg"
-            }
+            }`}
             alt="down-logo"
             height={12}
             width={12}
