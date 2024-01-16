@@ -11,9 +11,11 @@ import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
+import BoardDetailsClient from "./BoardDetailsClient";
 
 export {
   Boards,
+  BoardDetailsClient,
   BoardTitle,
   Button,
   Columns,
