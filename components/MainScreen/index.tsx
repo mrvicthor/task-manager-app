@@ -13,7 +13,7 @@ export const MainScreen = ({ children }: MainScreenProps) => {
       className={`${
         lightTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
       } min-h-screen ${
-        showSidebar ? "translate-x-[18.75rem]" : "translate-x-0"
+        showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
       } sidebar mt-16`}
     >
       {children}
