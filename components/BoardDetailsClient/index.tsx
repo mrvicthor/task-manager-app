@@ -15,7 +15,7 @@ const BoardDetailsClient = ({ children }: DetailsProps) => {
         lightTheme ? "bg-[#e4ebfa] text-[#000112]" : "bg-[#20212c] text-white"
       }  ${
         showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
-      } sidebar mt-16`}
+      } sidebar h-[100vh] mt-16`}
     >
       {children}
     </section>
