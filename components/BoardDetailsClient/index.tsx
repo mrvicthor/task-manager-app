@@ -13,7 +13,7 @@ const BoardDetailsClient = ({ children }: DetailsProps) => {
     <section
       className={`${
         lightTheme ? "bg-[#e4ebfa] text-[#000112]" : "bg-[#20212c] text-white"
-      } h-screen ${
+      }  ${
         showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
       } sidebar mt-16`}
     >
