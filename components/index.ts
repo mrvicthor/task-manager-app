@@ -12,6 +12,8 @@ import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
 import BoardDetailsClient from "./BoardDetailsClient";
+import TaskClient from "./TaskClient";
+import Task from "./Task";
 
 export {
   Boards,
@@ -26,6 +28,8 @@ export {
   MobileClientComponent,
   NavList,
   Sidebar,
+  Task,
+  TaskClient,
   ThemeToggle,
   Toggle,
 };
