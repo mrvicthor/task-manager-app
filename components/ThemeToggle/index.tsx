@@ -5,7 +5,7 @@ import { toggleTheme } from "@/lib/features/theme/themeSlice";
 import { motion } from "framer-motion";
 const ThemeToggle = () => {
   const dispatch = useAppDispatch();
-  const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+  const lightTheme = useAppSelector((state) => state.theme.lightTheme);
 
   const handleToggle = () => {
     dispatch(toggleTheme());
@@ -30,7 +30,7 @@ const ThemeToggle = () => {
       <div
         onClick={handleToggle}
         className={`${
-          lighTheme ? "justify-start" : "justify-end"
+          lightTheme ? "justify-start" : "justify-end"
         } w-[2.5rem] h-[1.25rem] bg-[#635fc7] rounded-full flex items-center px-1 cursor-pointer`}
       >
         <motion.div

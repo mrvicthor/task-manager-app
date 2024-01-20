@@ -20,7 +20,6 @@ export default function RootLayout({ children }: LayoutProps) {
         <StoreProvider>
           <section className="">
             <Sidebar />
-
             <section>
               <Header />
               <MobileMenu />
