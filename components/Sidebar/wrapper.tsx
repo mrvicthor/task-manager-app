@@ -29,7 +29,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
         {children}
         <div
           className={`${
-            lighTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
+            lighTheme ? "bg-[#F4F7FD]" : "bg-[#20212c]"
           } fixed bottom-24 left-6  h-[2.4rem] w-[15.6875rem] rounded`}
         >
           <ThemeToggle />

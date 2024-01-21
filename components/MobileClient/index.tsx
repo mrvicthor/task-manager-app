@@ -29,7 +29,7 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
             {children}
             <div
               className={`${
-                lightTheme ? "bg-[#e4ebfa]" : "bg-[#20212c]"
+                lightTheme ? "bg-[#F4F7FD]" : "bg-[#20212c]"
               } h-[2.4rem] w-[14.6875rem] l:w-[15.6875rem] rounded mt-8 ml-4`}
             >
               <ThemeToggle />

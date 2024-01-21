@@ -7,7 +7,9 @@ import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
 import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
+import NewColumnClient from "./NewColumn";
 import Sidebar from "./Sidebar";
+import StatusCircle from "./StatusCircle";
 import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
@@ -27,7 +29,9 @@ export {
   MobileMenu,
   MobileClientComponent,
   NavList,
+  NewColumnClient,
   Sidebar,
+  StatusCircle,
   Task,
   TaskClient,
   ThemeToggle,

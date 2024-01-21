@@ -1,5 +1,11 @@
 import prisma from "@/lib/prisma";
-import { BoardDetailsClient, TaskClient, Task } from "@/components";
+import {
+  BoardDetailsClient,
+  NewColumnClient,
+  StatusCircle,
+  TaskClient,
+  Task,
+} from "@/components";
 
 interface Task {
   id: number;
@@ -9,6 +15,7 @@ interface Task {
   columnId: number;
   [key: string]: any;
 }
+
 const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
   const tasks = await prisma.task.findMany({
     where: {
@@ -27,15 +34,6 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
     {}
   );
 
-  const getStatusColor = (status: string): string => {
-    const colorMap: Record<string, string> = {
-      Todo: "#49C4E5",
-      Doing: "#8471F2",
-      Done: "#67E2AE",
-      // Add more status-color mappings as needed
-    };
-    return colorMap[status] || "#000"; // Default to black if no mapping found
-  };
   return (
     <BoardDetailsClient>
       <div className="task-column-wrapper gap-6 pt-6 flex px-6">
@@ -45,11 +43,7 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
             className="flex flex-col  gap-5 min-w-[280px] max-w-[280px]"
           >
             <div className="flex items-center gap-2 font-bold text-xs text-[#828FA3]">
-              <div
-                className={`bg-[${getStatusColor(
-                  status
-                )}] h-[15px] w-[15px] rounded-full`}
-              />
+              <StatusCircle status={status} />
               <h2 className="uppercase">
                 {status} ({tasksForStatus.length})
               </h2>
@@ -61,6 +55,7 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
             ))}
           </section>
         ))}
+        <NewColumnClient />
       </div>
     </BoardDetailsClient>
   );
