@@ -15,7 +15,7 @@ export type Task = {
   title: string;
   description?: string;
   status: string;
-  subtasks: Subtask[];
+  subtasks?: Subtask[];
 };
 
 export type Subtask = {
