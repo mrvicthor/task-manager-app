@@ -14,8 +14,7 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
   const handleToggleMobileMenu = () => {
     if (showMobileMenu) {
       document.body.style.overflow = "hidden";
-    }
-    {
+    } else {
       document.body.style.overflow = "auto";
     }
     dispatch(toggleMobileBoard());
