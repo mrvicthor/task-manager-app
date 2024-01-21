@@ -10,7 +10,14 @@ const BoardTitle = () => {
     (state) => state.board.showMobileBoard
   );
 
-  const handleToggleMobileMenu = () => dispatch(toggleMobileBoard());
+  const handleToggleMobileMenu = () => {
+    if (showMobileBoard) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+    dispatch(toggleMobileBoard());
+  };
   return (
     <div className="md:hidden" onClick={handleToggleMobileMenu}>
       <div className="flex items-center justify-center space-x-2">
