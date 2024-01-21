@@ -11,7 +11,15 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showMobileMenu = useAppSelector((state) => state.board.showMobileBoard);
-  const handleToggleMobileMenu = () => dispatch(toggleMobileBoard());
+  const handleToggleMobileMenu = () => {
+    if (showMobileMenu) {
+      document.body.style.overflow = "hidden";
+    }
+    {
+      document.body.style.overflow = "auto";
+    }
+    dispatch(toggleMobileBoard());
+  };
   return (
     <section>
       {showMobileMenu ? (
