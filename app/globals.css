@@ -19,6 +19,17 @@
     padding-block: 14px;
     border-radius: 0px 100px 100px 0px;
   }
+
+  .navlist:hover {
+    border-radius: 0px 100px 100px 0px;
+    padding-block: 14px;
+    background: rgb(99, 95, 199, 0.1);
+  }
+
+  .navlist:hover img svg path {
+    fill: #635fc7;
+  }
+
   .mobile-menu {
     border-radius: 8px;
     box-shadow: 0px 10px 20px 0px rgba(54, 78, 126, 0.25);

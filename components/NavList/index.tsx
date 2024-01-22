@@ -1,5 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { SvgComponent } from "..";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import { Board } from "@prisma/client";
@@ -20,21 +21,12 @@ const NavList = ({ board }: NavProps) => {
         href={`/board/${board.id}`}
         className={`${
           pathname === `/board/${board.id.toString()}`
-            ? "active text-white w-[240px] l:w-[276px]"
-            : ""
-        } flex items-center gap-x-4 px-8 cursor-pointer text-[#828fa3]`}
+            ? "active text-white w-[240px] lg:w-[276px]"
+            : "navlist hover:text-[#635FC7] "
+        } flex items-center gap-x-4 px-8 cursor-pointer text-[#828fa3] hover:w-[240px] lg:hover:w-[276px]`}
       >
         <div>
-          <Image
-            src={`/${
-              pathname === board.name
-                ? "./assets/icon-board-white.svg"
-                : "./assets/icon-board.svg"
-            }`}
-            alt="board-icon"
-            height={16}
-            width={16}
-          />
+          <SvgComponent color="text-[#828fa3] hover:text-[#635fc7]" />
         </div>
         <div>
           <p className="font-bold capitalize text-[15px]">{board.name}</p>

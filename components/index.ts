@@ -10,6 +10,7 @@ import NavList from "./NavList";
 import NewColumnClient from "./NewColumn";
 import Sidebar from "./Sidebar";
 import StatusCircle from "./StatusCircle";
+import SvgComponent from "./SVGComponent";
 import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
@@ -32,6 +33,7 @@ export {
   NewColumnClient,
   Sidebar,
   StatusCircle,
+  SvgComponent,
   Task,
   TaskClient,
   ThemeToggle,
