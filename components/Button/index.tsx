@@ -1,7 +1,14 @@
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 const Button = () => {
+  const pathname = usePathname();
   return (
-    <button className=" flex bg-[#635fc7] text-white px-6 py-2 rounded-3xl gap-x-1">
+    <button
+      className={`${
+        pathname === "/" ? "opacity-10" : "opacity-100"
+      } flex bg-[#635fc7] text-white px-6 py-2 rounded-3xl gap-x-1 hover:bg-[#A8A4FF]`}
+      disabled={pathname === "/"}
+    >
       <Image
         src={"/" + "./assets/icon-add-task-mobile.svg"}
         alt="plus-icon"

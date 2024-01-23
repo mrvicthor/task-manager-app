@@ -1,13 +1,15 @@
 "use client";
 import { useAppSelector } from "@/lib/hooks";
 import { Button, BoardTitle } from "..";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 const Header = () => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
-
+  const pathname = usePathname();
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const boardName = useAppSelector((state) => state.board.name);
+
   return (
     <header
       className={`${
@@ -59,14 +61,18 @@ const Header = () => {
               lighTheme ? "text-[#000112]" : "text-white"
             } font-bold text-lg`}
           >
-            {boardName}
+            {pathname === "/" ? "Home" : boardName}
           </h1>
         </div>
         <div className="hidden md:block ml-auto">
           <Button />
         </div>
 
-        <button className="bg-[#635fc7] opacity-30 h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden">
+        <button
+          className={`${
+            pathname === "/" ? "opacity-10" : ""
+          } bg-[#635fc7] opacity-30 h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden`}
+        >
           <Image
             src={"/" + "./assets/icon-add-task-mobile.svg"}
             alt="add-icon"
