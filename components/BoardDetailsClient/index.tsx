@@ -1,13 +1,24 @@
 "use client";
-import { useAppSelector } from "@/lib/hooks";
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { setBoardSelected } from "@/lib/features/board/boardSlice";
+import { Board } from "@prisma/client";
 
 interface DetailsProps {
   children: React.ReactNode;
+  board: Board | null;
 }
 
-const BoardDetailsClient = ({ children }: DetailsProps) => {
+const BoardDetailsClient = ({ children, board }: DetailsProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (board) {
+      dispatch(setBoardSelected(board?.name));
+    }
+  }, [board, dispatch]);
 
   return (
     <section

@@ -1,9 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { SvgComponent } from "..";
-import { useAppDispatch } from "@/lib/hooks";
 import { Board } from "@prisma/client";
-import { setBoardSelected } from "@/lib/features/board/boardSlice";
 import Link from "next/link";
 
 interface NavProps {
@@ -11,11 +9,10 @@ interface NavProps {
 }
 
 const NavList = ({ board }: NavProps) => {
-  const dispatch = useAppDispatch();
   const pathname = usePathname();
 
   return (
-    <li key={board.id} onClick={() => dispatch(setBoardSelected(board.name))}>
+    <li key={board.id}>
       <Link
         href={`/board/${board.id}`}
         className={`${

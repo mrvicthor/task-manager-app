@@ -25,6 +25,12 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
     },
   });
 
+  const board = await prisma.board.findUnique({
+    where: {
+      id: Number(params?.boardId),
+    },
+  });
+
   const filterTasksByStatus: Record<string, Task[]> = tasks.reduce(
     (acc: Record<string, Task[]>, task) => {
       const status = task.status || "";
@@ -35,7 +41,7 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
   );
 
   return (
-    <BoardDetailsClient>
+    <BoardDetailsClient board={board}>
       <div className="task-column-wrapper gap-6 pt-6 flex px-6">
         {Object.entries(filterTasksByStatus).map(([status, tasksForStatus]) => (
           <section
@@ -50,7 +56,7 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
             </div>
             {tasksForStatus.map((item) => (
               <TaskClient key={item.id}>
-                <Task title={item.title} />
+                <Task title={item.title} id={item.id} />
               </TaskClient>
             ))}
           </section>
