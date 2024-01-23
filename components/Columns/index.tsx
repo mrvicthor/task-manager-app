@@ -19,13 +19,9 @@ const Columns = () => {
       <h1 className="text-center capitalize font-bold text-2xl">
         welcome to the kanban task manager app
       </h1>
-      <p className="text-center hidden md:block capitalize">
-        <span className=" animate-ping text-lg">👈</span> open the sidebar to
-        add board or navigate between boards
-      </p>
-      <p className="text-center md:hidden capitalize">
-        <span className="animate-bounce text-lg">👆</span> click on the drop
-        down to add board or navigate between boards
+      <p className="text-center hidden md:block">
+        <span className=" animate-ping">👈</span> open the sidebar to add board
+        or navigate between boards
       </p>
     </section>
   );
