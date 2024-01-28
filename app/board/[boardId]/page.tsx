@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import {
   BoardDetailsClient,
-  NewColumnClient,
+  DropArea,
   StatusCircle,
   TaskClient,
   Task,
 } from "@/components";
+import React from "react";
 
 interface Task {
   id: number;
@@ -42,26 +43,27 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
 
   return (
     <BoardDetailsClient board={board}>
-      <div className="task-column-wrapper gap-6 pt-6 flex px-6">
+      <div className="gap-6 pt-6 flex">
         {Object.entries(filterTasksByStatus).map(([status, tasksForStatus]) => (
-          <section
-            key={status}
-            className="flex flex-col  gap-5 min-w-[280px] max-w-[280px]"
-          >
-            <div className="flex items-center gap-2 font-bold text-xs text-[#828FA3]">
+          <div className="" key={status}>
+            <div className="flex items-center gap-2 mb-6 font-bold text-xs text-[#828FA3]">
               <StatusCircle status={status} />
               <h2 className="uppercase">
                 {status} ({tasksForStatus.length})
               </h2>
             </div>
-            {tasksForStatus.map((item) => (
-              <TaskClient key={item.id}>
-                <Task title={item.title} id={item.id} />
-              </TaskClient>
-            ))}
-          </section>
+
+            <DropArea>
+              {tasksForStatus.map((item, index) => (
+                <React.Fragment key={item.id}>
+                  <TaskClient index={index} item={item}>
+                    <Task title={item.title} id={item.id} />
+                  </TaskClient>
+                </React.Fragment>
+              ))}
+            </DropArea>
+          </div>
         ))}
-        <NewColumnClient />
       </div>
     </BoardDetailsClient>
   );

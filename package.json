@@ -13,18 +13,21 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^16.5.0",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@prisma/client": "^5.7.1",
     "@reduxjs/toolkit": "^2.0.1",
     "framer-motion": "^10.16.16",
     "next": "14.0.4",
     "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
     "react-redux": "^9.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",

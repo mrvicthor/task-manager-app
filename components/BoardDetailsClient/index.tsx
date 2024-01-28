@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setBoardSelected } from "@/lib/features/board/boardSlice";
 import { Board } from "@prisma/client";
+import { NewColumnClient } from "..";
 
 interface DetailsProps {
   children: React.ReactNode;
@@ -28,7 +29,10 @@ const BoardDetailsClient = ({ children, board }: DetailsProps) => {
         showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
       } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto`}
     >
-      {children}
+      <div className="gap-6 pt-6 flex px-6">
+        {children}
+        <NewColumnClient />
+      </div>
     </section>
   );
 };

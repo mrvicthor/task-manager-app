@@ -5,10 +5,12 @@ export interface BoardState {
   name: string;
   showBoard: boolean;
   showMobileBoard: boolean;
+  draggingTask: null | string;
 }
 
 const initialState: BoardState = {
   name: "",
+  draggingTask: null,
   showBoard: false,
   showMobileBoard: false,
 };
@@ -26,9 +28,16 @@ export const BoardSlice = createSlice({
     toggleMobileBoard: (state) => {
       state.showMobileBoard = !state.showMobileBoard;
     },
+    setDraggingTask: (state, action: PayloadAction<string | null>) => {
+      state.draggingTask = action.payload;
+    },
   },
 });
 
-export const { toggleBoard, setBoardSelected, toggleMobileBoard } =
-  BoardSlice.actions;
+export const {
+  toggleBoard,
+  setBoardSelected,
+  toggleMobileBoard,
+  setDraggingTask,
+} = BoardSlice.actions;
 export default BoardSlice.reducer;

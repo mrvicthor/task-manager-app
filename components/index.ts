@@ -2,6 +2,8 @@ import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
 import Columns from "./Columns";
+import DropArea from "./DropArea";
+
 import Header from "./Header";
 import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
@@ -24,6 +26,7 @@ export {
   BoardTitle,
   Button,
   Columns,
+  DropArea,
   Header,
   LogoToggle,
   MainScreen,
