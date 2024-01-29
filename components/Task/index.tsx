@@ -15,7 +15,7 @@ const Task = async ({ title, id }: TaskProps) => {
   return (
     <>
       <p>{title}</p>
-      <p className="text-xs text-[#828FA3]">{subtask.length}</p>
+      <p className="text-xs text-[#828FA3] mt-2">{subtask.length} subtasks</p>
     </>
   );
 };

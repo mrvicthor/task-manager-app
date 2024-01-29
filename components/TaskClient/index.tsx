@@ -22,6 +22,7 @@ const TaskClient = ({ children, index, item }: TaskClientProps) => {
     console.log(`dragging ${value}`);
     dispatch(setDraggingTask(value));
   };
+
   return (
     <Draggable draggableId={item.id.toString()} index={index}>
       {(provided) => (
