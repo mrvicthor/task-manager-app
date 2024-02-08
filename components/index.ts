@@ -1,9 +1,7 @@
 import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
-import Columns from "./Columns";
-import DropArea from "./DropArea";
-
+import HomeScreen from "./Home";
 import Header from "./Header";
 import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
@@ -16,17 +14,14 @@ import SvgComponent from "./SVGComponent";
 import ThemeToggle from "./ThemeToggle";
 import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
-import BoardDetailsClient from "./BoardDetailsClient";
 import TaskClient from "./TaskClient";
 import Task from "./Task";
 
 export {
   Boards,
-  BoardDetailsClient,
   BoardTitle,
   Button,
-  Columns,
-  DropArea,
+  HomeScreen,
   Header,
   LogoToggle,
   MainScreen,

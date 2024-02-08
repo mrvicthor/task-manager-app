@@ -1,21 +1,23 @@
-import prisma from "@/lib/prisma";
+import { Subtask } from "@prisma/client";
 
 interface TaskProps {
   title: string;
   id: number;
+  subtask: Subtask[];
 }
 
-const Task = async ({ title, id }: TaskProps) => {
-  const subtask = await prisma.subtask.findMany({
-    where: {
-      taskId: id,
-    },
-  });
+const Task = ({ title, id, subtask }: TaskProps) => {
+  const filteredSubtask = subtask.filter((t) => t.taskId === id);
+  const totalTaskCompleted = filteredSubtask.filter(
+    (item) => item.isCompleted === true
+  );
 
   return (
     <>
       <p>{title}</p>
-      <p className="text-xs text-[#828FA3] mt-2">{subtask.length} subtasks</p>
+      <p className="text-xs text-[#828FA3] mt-2">
+        {totalTaskCompleted.length} of {filteredSubtask.length} subtasks
+      </p>
     </>
   );
 };

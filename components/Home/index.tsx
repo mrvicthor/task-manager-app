@@ -2,7 +2,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { Player } from "@lottiefiles/react-lottie-player";
 
-const Columns = () => {
+const HomeScreen = () => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   return (
     <section
@@ -27,4 +27,4 @@ const Columns = () => {
   );
 };
 
-export default Columns;
+export default HomeScreen;

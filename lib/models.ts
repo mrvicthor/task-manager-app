@@ -6,15 +6,17 @@ export type Board = {
 
 export type Column = {
   id?: number;
+  boardId: number;
   name: string;
   tasks: Task[];
 };
 
 export type Task = {
-  id?: number;
+  id: number;
   title: string;
-  description?: string;
+  description: string | null;
   status: string;
+  columnId: number;
   subtasks?: Subtask[];
 };
 

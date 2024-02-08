@@ -3,11 +3,13 @@ import Image from "next/image";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleMobileBoard } from "@/lib/features/board/boardSlice";
 import { usePathname } from "next/navigation";
+
 const BoardTitle = () => {
   const boardName = useAppSelector((state) => state.board.name);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const pathname = usePathname();
   const dispatch = useAppDispatch();
+
   const showMobileBoard = useAppSelector(
     (state) => state.board.showMobileBoard
   );

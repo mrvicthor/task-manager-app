@@ -22,7 +22,7 @@ const NavList = ({ board }: NavProps) => {
             ? "active text-white w-[240px] lg:w-[276px]"
             : `${
                 lightTheme ? "navlist" : "navlist-dark"
-              } hover:text-[#635FC7] py-[14px]`
+              } hover:text-[#635FC7] hover:py-[14px]`
         } flex items-center gap-x-4 px-8 cursor-pointer text-[#828fa3] hover:w-[240px] lg:hover:w-[276px]`}
       >
         <div>

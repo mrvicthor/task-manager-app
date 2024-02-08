@@ -1,4 +1,4 @@
-import { Columns, MainScreen } from "@/components";
+import { HomeScreen, MainScreen } from "@/components";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     <MainScreen>
       <Suspense fallback={<p>Loading feed...</p>}>
         <section className="pl-4 md:pl-6">
-          <Columns />
+          <HomeScreen />
         </section>
       </Suspense>
     </MainScreen>
