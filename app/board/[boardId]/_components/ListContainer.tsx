@@ -56,7 +56,6 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
     if (type === "column") {
       const entries = Array.from(data);
       const [removed] = entries.splice(source.index, 1);
-      console.log(source, destination);
       entries.splice(destination.index, 0, removed);
       const reorderedColumns = entries;
       setData(reorderedColumns);
@@ -90,9 +89,36 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
       };
 
       setData(
-        data.map((column) => {
-          if (column.id === newColumn.id) {
-            return { ...column, tasks: newColumn.tasks };
+        data.map((column) =>
+          column.id === newColumn.id
+            ? { ...column, tasks: newColumn.tasks }
+            : column
+        )
+      );
+    } else {
+      const startTask = Array.from(startColumn.tasks);
+      const [movedTask] = startTask.splice(source.index, 1);
+      const newStartColumn = {
+        ...startColumn,
+        tasks: startTask,
+      };
+      const newFinishTask = Array.from(finishColumn.tasks);
+      newFinishTask.splice(destination.index, 0, {
+        ...movedTask,
+        columnId: finishColumn.id,
+        status: finishColumn.name,
+      });
+      const newFinishColumn = {
+        ...finishColumn,
+        tasks: newFinishTask,
+      };
+
+      setData((prevData) =>
+        prevData.map((column) => {
+          if (column.id === newStartColumn.id) {
+            return { ...column, tasks: newStartColumn.tasks };
+          } else if (column.id === newFinishColumn.id) {
+            return { ...column, tasks: newFinishColumn.tasks };
           } else {
             return column;
           }
@@ -100,15 +126,6 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
       );
     }
   };
-
-  // const filterTasksByStatus: Record<string, Task[]> = task.reduce(
-  //   (acc: Record<string, Task[]>, task) => {
-  //     const status = task.status || "";
-  //     acc[status] = [...(acc[status] || []), task];
-  //     return acc;
-  //   },
-  //   {}
-  // );
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
