@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import React from "react";
+import React, { Suspense } from "react";
 import ListContainer from "./_components/ListContainer";
 
 interface Task {
@@ -46,6 +46,12 @@ const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
 
   const subtasks = await prisma.subtask.findMany();
 
-  return <ListContainer board={board} columns={columns} subtasks={subtasks} />;
+  return (
+    <>
+      <Suspense fallback={<p>loading board...</p>}>
+        <ListContainer board={board} columns={columns} subtasks={subtasks} />
+      </Suspense>
+    </>
+  );
 };
 export default BoardDetails;

@@ -1,12 +1,7 @@
 "use client";
 import { useEffect, Suspense, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import {
-  setBoardSelected,
-  setColumns,
-  setTasks,
-} from "@/lib/features/board/boardSlice";
-// import { Column as Columns } from "@/models";
+import { setBoardSelected } from "@/lib/features/board/boardSlice";
 import { Board, Subtask } from "@prisma/client";
 import Column from "./Column";
 import { NewColumnClient } from "@/components";
@@ -49,7 +44,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   }, [board, dispatch]);
 
   const onDragEnd = (result: DropResult) => {
-    const { destination, source, type, draggableId } = result;
+    const { destination, source, type } = result;
     if (!destination) return;
 
     // handle drag events for columns

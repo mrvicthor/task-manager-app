@@ -11,13 +11,11 @@ interface ColumnProps {
   id: number;
 }
 const Column = ({ status, data, subtask, index, id }: ColumnProps) => {
-  // const filteredResult = data.filter((task) => task.columnId === id);
-
   return (
-    <Draggable draggableId={status} index={index}>
+    <Draggable draggableId={status ? status : "test"} index={index}>
       {(provided) => (
         <li {...provided.draggableProps} ref={provided.innerRef}>
-          <div {...provided.dragHandleProps} className="">
+          <div {...provided.dragHandleProps}>
             <div className="flex items-center gap-2 mb-6 font-bold text-xs text-[#828FA3]">
               <StatusCircle status={status} />
               <h2 className="uppercase">
@@ -30,7 +28,7 @@ const Column = ({ status, data, subtask, index, id }: ColumnProps) => {
                 <ol
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="flex flex-col gap-5 min-w-[280px] max-w-[280px]"
+                  className="flex flex-col gap-5 min-w-[280px] max-w-[280px] min-h-[150px]"
                 >
                   {data.map((item, index) => (
                     <TaskClient
