@@ -1,6 +1,8 @@
 import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
+import CreateTask from "./CreateTask";
+import Form from "./Form";
 import HomeScreen from "./Home";
 import Header from "./Header";
 import LogoToggle from "./Logo";
@@ -21,6 +23,8 @@ export {
   Boards,
   BoardTitle,
   Button,
+  CreateTask,
+  Form,
   HomeScreen,
   Header,
   LogoToggle,

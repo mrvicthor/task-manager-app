@@ -1,14 +1,21 @@
 "use client";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { Button, BoardTitle } from "..";
 import { usePathname } from "next/navigation";
+import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 import Image from "next/image";
 import Link from "next/link";
 const Header = () => {
+  const dispatch = useAppDispatch();
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const pathname = usePathname();
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const boardName = useAppSelector((state) => state.board.name);
+
+  const showForm = () => {
+    document.body.style.overflow = "hidden";
+    dispatch(toggleTaskForm());
+  };
 
   return (
     <header
@@ -69,9 +76,10 @@ const Header = () => {
         </div>
 
         <button
+          onClick={showForm}
           className={`${
-            pathname === "/" ? "opacity-10" : ""
-          } bg-[#635fc7] opacity-30 h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden`}
+            pathname === "/" ? "opacity-10" : "opacity-100"
+          } bg-[#635fc7]  h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden`}
         >
           <Image
             src={"/" + "./assets/icon-add-task-mobile.svg"}

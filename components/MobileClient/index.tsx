@@ -21,8 +21,7 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
         <>
           <div
             onClick={handleToggleMobileMenu}
-            id="overlay"
-            className="md:hidden fixed bg-[#000] opacity-50 h-full w-screen left-0 right-0 bottom-0 top-0 z-20 cursor-pointer"
+            className="md:hidden fixed bg-[#000] opacity-50 size-full left-0 right-0 bottom-0 top-0 z-20 cursor-pointer"
           />
           <section
             className={`${

@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "./features/theme/themeSlice";
 import sidebarReducer from "./features/sidebar/sidebarSlice";
 import boardReducer from "./features/board/boardSlice";
+import taskReducer from "./features/task/taskSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       board: boardReducer,
       theme: themeReducer,
       sidebar: sidebarReducer,
+      task: taskReducer,
     },
   });
 };

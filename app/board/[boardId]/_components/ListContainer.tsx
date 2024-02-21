@@ -1,12 +1,23 @@
 "use client";
-import { useEffect, Suspense, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setBoardSelected } from "@/lib/features/board/boardSlice";
-import { Board, Subtask } from "@prisma/client";
+import { Subtask } from "@prisma/client";
 import Column from "./Column";
 import { NewColumnClient } from "@/components";
-import { DragDropContext, DropResult, Droppable } from "@hello-pangea/dnd";
+import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 
+type Columns = {
+  id: number;
+  name: string;
+  boardId: number;
+};
+
+type Board = {
+  id: number;
+  name: string;
+  columns: Columns[];
+};
 interface DetailsProps {
   board: Board | null;
   columns: Column[];
@@ -31,16 +42,13 @@ interface Task {
 const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
-  // const data = useAppSelector((state) => state.board.columns);
   const [data, setData] = useState<Column[]>(columns);
   const [tasks, setTasks] = useState<Task[]>([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const todos = useAppSelector((state) => state.board.tasks);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (board) {
-      dispatch(setBoardSelected(board?.name));
+      dispatch(setBoardSelected(board.name));
     }
   }, [board, dispatch]);
 
@@ -53,11 +61,8 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
     ) {
       return;
     }
-
-    console.log(source.droppableId, destination.droppableId);
     const start = data[Number(source.droppableId)];
     const finish = data[Number(destination.droppableId)];
-    console.log(start, finish);
     if (start === finish) {
       const newTasks = Array.from(start.tasks);
       const [movedTask] = newTasks.splice(source.index, 1);
@@ -108,15 +113,17 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <ol
-        className={`${
-          lightTheme ? "bg-[#F4F7FD] text-[#000112]" : "bg-[#20212c] text-white"
-        }  ${
-          showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
-        } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto flex gap-6 pl-6`}
-      >
-        <Suspense fallback={<p>Loading columns</p>}>
+    <>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <ol
+          className={`${
+            lightTheme
+              ? "bg-[#F4F7FD] text-[#000112]"
+              : "bg-[#20212c] text-white"
+          }  ${
+            showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
+          } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto flex gap-6 pl-6`}
+        >
           <div className="gap-6 pt-6 flex">
             {data.map((column, index) => {
               return (
@@ -131,10 +138,10 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
               );
             })}
           </div>
-        </Suspense>
-        <NewColumnClient />
-      </ol>
-    </DragDropContext>
+          <NewColumnClient />
+        </ol>
+      </DragDropContext>
+    </>
   );
 };
 

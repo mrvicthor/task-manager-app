@@ -1,27 +1,28 @@
-export type Board = {
-  id?: number;
+export interface Board {
+  id: number;
   name: string;
   columns: Column[];
-};
+}
 
-export type Column = {
-  id?: number;
-  boardId: number;
+// Define the Column model
+export interface Column {
+  id: number;
   name: string;
   tasks: Task[];
-};
+}
 
-export type Task = {
+// Define the Task model
+export interface Task {
   id: number;
   title: string;
-  description: string | null;
+  description?: string;
   status: string;
-  columnId: number;
-  subtasks?: Subtask[];
-};
+  subtasks: Subtask[];
+}
 
-export type Subtask = {
-  id?: number;
+// Define the Subtask model
+export interface Subtask {
+  id: number;
   title: string;
   isCompleted: boolean;
-};
+}
