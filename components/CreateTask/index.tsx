@@ -19,7 +19,7 @@ const CreateTask = () => {
         <>
           <div
             onClick={hideFormToggle}
-            className="fixed top-0 left-0 right-0 bottom-0 z-[9999] size-full bg-[#000] opacity-50"
+            className="fixed top-0 left-0 right-0 bottom-0 z-[9999] size-full bg-[#000] opacity-50 cursor-pointer"
           />
           <section
             className={`${
