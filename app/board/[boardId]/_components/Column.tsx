@@ -1,5 +1,6 @@
 "use client";
-import { Task as List, Subtask } from "@prisma/client";
+import { Subtask } from "@prisma/client";
+import { Task as List } from "@/lib/models";
 import { Droppable } from "@hello-pangea/dnd";
 import { StatusCircle, TaskClient, Task } from "@/components";
 

@@ -1,34 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { setBoardSelected } from "@/lib/features/board/boardSlice";
-import { Subtask } from "@prisma/client";
 import Column from "./Column";
 import { NewColumnClient } from "@/components";
+import { setBoardSelected } from "@/lib/features/board/boardSlice";
+import { Subtask } from "@prisma/client";
+import { Board, Column as TColumn } from "@/lib/models";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 
-type Columns = {
-  id: number;
-  name: string;
-  boardId: number;
-};
-
-type Board = {
-  id: number;
-  name: string;
-  columns: Columns[];
-};
 interface DetailsProps {
   board: Board | null;
-  columns: Column[];
+  columns: TColumn[];
   subtasks: Subtask[];
-}
-
-interface Column {
-  id: number;
-  boardId: number;
-  name: string;
-  tasks: Task[];
 }
 
 interface Task {
@@ -42,7 +25,7 @@ interface Task {
 const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
-  const [data, setData] = useState<Column[]>(columns);
+  const [data, setData] = useState<TColumn[]>(columns);
   const [tasks, setTasks] = useState<Task[]>([]);
   const dispatch = useAppDispatch();
 
@@ -53,7 +36,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   }, [board, dispatch]);
 
   const onDragEnd = (result: DropResult) => {
-    const { destination, source, type } = result;
+    const { destination, source } = result;
     if (!destination) return;
     if (
       destination.droppableId === source.droppableId &&

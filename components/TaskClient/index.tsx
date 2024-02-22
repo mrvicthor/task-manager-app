@@ -2,14 +2,15 @@
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { Subtask } from "@prisma/client";
-interface Task {
-  id: number;
-  title: string;
-  description: string | null;
-  status: string;
-  columnId: number;
-  [key: string]: any;
-}
+import { Task } from "@/lib/models";
+// interface Task {
+//   id: number;
+//   title: string;
+//   description: string | null;
+//   status: string;
+//   columnId: number;
+//   [key: string]: any;
+// }
 interface TaskClientProps {
   children: React.ReactNode;
   index: number;

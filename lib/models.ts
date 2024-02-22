@@ -1,12 +1,18 @@
+interface Columns {
+  id: number;
+  name: string;
+  boardId: number;
+}
 export interface Board {
   id: number;
   name: string;
-  columns: Column[];
+  columns: Columns[];
 }
 
 // Define the Column model
 export interface Column {
   id: number;
+  boardId: number;
   name: string;
   tasks: Task[];
 }
@@ -14,10 +20,11 @@ export interface Column {
 // Define the Task model
 export interface Task {
   id: number;
+  columnId: number;
   title: string;
-  description?: string;
+  description: string | null;
   status: string;
-  subtasks: Subtask[];
+  // subtasks: Subtask[];
 }
 
 // Define the Subtask model
