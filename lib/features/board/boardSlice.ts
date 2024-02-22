@@ -9,12 +9,12 @@ export interface BoardState {
   showMobileBoard: boolean;
   columns: Column[];
   tasks: Task[];
-  boards: Board[];
+  boards: Board | null;
 }
 
 const initialState: BoardState = {
   name: "",
-  boards: [],
+  boards: null,
   showBoard: false,
   showMobileBoard: false,
   columns: [],
@@ -34,7 +34,7 @@ export const BoardSlice = createSlice({
     toggleMobileBoard: (state) => {
       state.showMobileBoard = !state.showMobileBoard;
     },
-    setBoard: (state, action: PayloadAction<Board[]>) => {
+    setBoard: (state, action: PayloadAction<Board>) => {
       state.boards = action.payload;
     },
     setColumns: (state, action: PayloadAction<Column[]>) => {

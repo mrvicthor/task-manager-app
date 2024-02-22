@@ -7,33 +7,17 @@ import { usePathname } from "next/navigation";
 interface ButtonProps {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   children: ReactNode;
+  style: string;
+  disabled?: boolean;
 }
 
-const Button = ({ onClick, children }: ButtonProps) => {
+const Button = ({ onClick, children, style, disabled }: ButtonProps) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
-  const showForm = () => {
-    document.body.style.overflow = "hidden";
-    dispatch(toggleTaskForm());
-  };
   return (
-    <button
-      onClick={onClick}
-      className={`${
-        pathname === "/" ? "opacity-10" : "opacity-100"
-      } flex bg-[#635fc7] text-white px-6 py-2 rounded-3xl gap-x-1 hover:bg-[#A8A4FF]`}
-      disabled={pathname === "/"}
-    >
+    <button onClick={onClick} className={style} disabled={disabled}>
       {children}
-      <Image
-        src={"/" + "./assets/icon-add-task-mobile.svg"}
-        alt="plus-icon"
-        width={5}
-        height={20}
-        className="self-center mt-1"
-      />
-      <p className="text-sm">Add New Task</p>
     </button>
   );
 };

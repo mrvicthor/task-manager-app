@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 import Image from "next/image";
 import Link from "next/link";
+
 const Header = () => {
   const dispatch = useAppDispatch();
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const pathname = usePathname();
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const boardName = useAppSelector((state) => state.board.name);
+  const columns = useAppSelector((state) => state.board.boards?.columns);
 
   const showForm = () => {
     document.body.style.overflow = "hidden";
@@ -72,12 +74,27 @@ const Header = () => {
           </h1>
         </div>
         <div className="hidden md:block ml-auto">
-          <Button />
+          <Button
+            onClick={showForm}
+            style={`${
+              pathname === "/" ? "opacity-10" : "opacity-100"
+            } flex bg-[#635fc7] text-white px-6 py-2 rounded-3xl gap-x-1 hover:bg-[#A8A4FF]`}
+          >
+            <Image
+              src={"/" + "./assets/icon-add-task-mobile.svg"}
+              alt="plus-icon"
+              width={5}
+              height={20}
+              className="self-center mt-1"
+            />
+            <p className="text-sm">Add New Task</p>
+          </Button>
         </div>
 
-        <button
+        <Button
           onClick={showForm}
-          className={`${
+          disabled={!columns?.length}
+          style={`${
             pathname === "/" ? "opacity-10" : "opacity-100"
           } bg-[#635fc7]  h-8 w-12 ml-auto flex items-center justify-center rounded-3xl md:hidden`}
         >
@@ -87,7 +104,7 @@ const Header = () => {
             height={16}
             width={16}
           />
-        </button>
+        </Button>
 
         <div>
           <Image
