@@ -38,7 +38,7 @@ const Select = ({ value, onChange, options }: SelectProps) => {
         <ul className="absolute top-[45px] left-0 right-0 border divide-y rounded">
           {options.map((item) => (
             <li
-              className={`py-1 px-4 cursor-pointer`}
+              className={`py-1 px-4 cursor-pointer hover:text-[#828FA3]`}
               key={item.id}
               value={item.title}
               onClick={() => onChange(item)}

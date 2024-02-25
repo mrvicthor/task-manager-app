@@ -78,34 +78,6 @@ const Form = () => {
           status
         </label>
         <Select options={options} value={value} onChange={onChange} />
-        {/* <div
-          onClick={() => setShowOptions(!showOptions)}
-          className="w-full h-[42px] px-5 inline-block border border-[#ccc] rounded relative"
-        >
-          <div className="absolute right-4 top-4">
-            <Image
-              src={`/${
-                showOptions
-                  ? "./assets/icon-chevron-up.svg"
-                  : "./assets/icon-chevron-down.svg"
-              }`}
-              height={12}
-              width={12}
-              alt="arrow-logo"
-            />
-          </div>
-          <select id="status" name="status" className="hidden">
-            {options.map((item) => (
-              <option
-                className={`${showOptions ? "absolute" : "hidden"}`}
-                key={item.id}
-                value={item.title}
-              >
-                {item.title}
-              </option>
-            ))}
-          </select>
-        </div> */}
       </div>
     </form>
   );

@@ -24,7 +24,7 @@ const CreateTask = () => {
           <section
             className={`${
               lightTheme ? "bg-[#ffffff]" : "bg-[#2b2c37]"
-            } absolute mx-auto top-[60px] min-h-[659px] w-[90%] left-[16px] right-[16px] z-[10000] rounded-lg px-6 py-6`}
+            } absolute mx-auto top-[20px] min-h-[659px] w-[90%] left-[16px] right-[16px] z-[10000] rounded-lg px-6 py-6`}
           >
             <p className="font-bold capitalize">add new task</p>
             <Form />
