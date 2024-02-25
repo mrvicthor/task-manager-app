@@ -10,6 +10,7 @@ import { MainScreen } from "./MainScreen";
 import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
 import NewColumnClient from "./NewColumn";
+import Select from "./Select";
 import Sidebar from "./Sidebar";
 import StatusCircle from "./StatusCircle";
 import SvgComponent from "./SVGComponent";
@@ -33,6 +34,7 @@ export {
   MobileClientComponent,
   NavList,
   NewColumnClient,
+  Select,
   Sidebar,
   StatusCircle,
   SvgComponent,

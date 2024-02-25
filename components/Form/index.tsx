@@ -1,11 +1,25 @@
+"use client";
+import { useState } from "react";
+import { Select } from "..";
 import Image from "next/image";
 type IStatus = "Todo" | "Doing" | "Done";
+type Option = {
+  id: number;
+  title: string;
+};
 const Form = () => {
+  const [showOptions, setShowOptions] = useState(false);
+  const [value, setValue] = useState<Option | null>(null);
   const options = [
     { id: 1, title: "Todo" },
     { id: 2, title: "Doing" },
     { id: 3, title: "Done" },
   ];
+
+  const onChange = (value: Option | null) => {
+    setValue(value);
+  };
+
   return (
     <form className="flex flex-col gap-6 mt-6">
       <div>
@@ -63,17 +77,35 @@ const Form = () => {
         <label htmlFor="status" className="text-[#828FA3] capitalize">
           status
         </label>
-        <select
-          id="status"
-          name="status"
-          className="w-full py-3 px-5 inline-block border border-[#ccc] rounded"
+        <Select options={options} value={value} onChange={onChange} />
+        {/* <div
+          onClick={() => setShowOptions(!showOptions)}
+          className="w-full h-[42px] px-5 inline-block border border-[#ccc] rounded relative"
         >
-          {options.map((item) => (
-            <option key={item.id} value={item.title}>
-              {item.title}
-            </option>
-          ))}
-        </select>
+          <div className="absolute right-4 top-4">
+            <Image
+              src={`/${
+                showOptions
+                  ? "./assets/icon-chevron-up.svg"
+                  : "./assets/icon-chevron-down.svg"
+              }`}
+              height={12}
+              width={12}
+              alt="arrow-logo"
+            />
+          </div>
+          <select id="status" name="status" className="hidden">
+            {options.map((item) => (
+              <option
+                className={`${showOptions ? "absolute" : "hidden"}`}
+                key={item.id}
+                value={item.title}
+              >
+                {item.title}
+              </option>
+            ))}
+          </select>
+        </div> */}
       </div>
     </form>
   );
