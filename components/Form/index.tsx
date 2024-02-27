@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Select } from "..";
+import { Select, Button } from "..";
 import Image from "next/image";
 type IStatus = "Todo" | "Doing" | "Done";
 type Option = {
@@ -72,6 +72,19 @@ const Form = () => {
             />
           </div>
         </div>
+        <Button
+          style="flex gap-x-1 bg-[#e4ebfa] w-full h-[40px] rounded-full items-center justify-center"
+          onClick={() => console.log("clicked")}
+        >
+          <Image
+            src={"/" + "./assets/icon-add-task-mobile.svg"}
+            alt="plus-icon"
+            width={5}
+            height={20}
+            className="self-center mt-1"
+          />
+          <p className="text-sm">add new subtask</p>
+        </Button>
       </div>
       <div>
         <label htmlFor="status" className="text-[#828FA3] capitalize">
@@ -79,6 +92,12 @@ const Form = () => {
         </label>
         <Select options={options} value={value} onChange={onChange} />
       </div>
+      <Button
+        style="bg-[#635fc7] w-full h-[40px] rounded-full"
+        onClick={() => console.log("clicked")}
+      >
+        create task
+      </Button>
     </form>
   );
 };
