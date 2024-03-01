@@ -1,17 +1,25 @@
 "use client";
-import { useState } from "react";
 import { Select, Button } from "..";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
+import { useForm } from "react-hook-form";
+// import { z } from "zod";
 
 type IStatus = "Todo" | "Doing" | "Done";
+type ISubtasks = string;
+type FormData = {
+  title: string;
+  description?: string;
+  subtasks?: ISubtasks[];
+  status: IStatus;
+};
 type Option = {
   id: number;
   title: string;
 };
+
 const Form = () => {
-  const [showOptions, setShowOptions] = useState(false);
-  const [value, setValue] = useState<Option | null>(null);
+  const { handleSubmit, register, control } = useForm<FormData>();
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const options = [
     { id: 1, title: "Todo" },
@@ -19,12 +27,13 @@ const Form = () => {
     { id: 3, title: "Done" },
   ];
 
-  const onChange = (value: Option | null) => {
-    setValue(value);
-  };
+  const onSubmit = (data: FormData) => console.log(data);
 
   return (
-    <form className="flex flex-col gap-5 mt-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-5 mt-5"
+    >
       <div>
         <label
           className={`${
@@ -35,6 +44,7 @@ const Form = () => {
           title
         </label>
         <input
+          {...register("title")}
           className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded mt-1 bg-transparent`}
           id="title"
           placeholder="e.g Take coffee break"
@@ -50,6 +60,7 @@ const Form = () => {
           description
         </label>
         <textarea
+          {...register("description")}
           id="description"
           className={`w-full py-3 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded resize-none h-[112px] mt-1 bg-transparent`}
           placeholder="e.g It's always good to take a break. This 15 minutes break will recharge the battery a little."
@@ -65,6 +76,7 @@ const Form = () => {
         </label>
         <div className="flex gap-4 mt-1">
           <input
+            {...register("subtasks")}
             className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded bg-transparent`}
             placeholder="e.g Make coffee"
           />{" "}
@@ -79,6 +91,7 @@ const Form = () => {
         </div>
         <div className="flex gap-4 mt-4">
           <input
+            {...register("subtasks")}
             className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded bg-transparent`}
             placeholder="e.g Drink coffee and smile"
           />
@@ -114,12 +127,9 @@ const Form = () => {
         >
           status
         </label>
-        <Select options={options} value={value} onChange={onChange} />
+        <Select options={options} control={control} name="status" />
       </div>
-      <Button
-        style="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white"
-        onClick={() => console.log("clicked")}
-      >
+      <Button style="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white">
         create task
       </Button>
     </form>

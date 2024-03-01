@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
+import { Control, useController } from "react-hook-form";
 
 type Option = {
   id: number;
@@ -9,13 +10,16 @@ type Option = {
 };
 
 type SelectProps = {
-  value: Option | null;
-  onChange: (value: Option | null) => void;
   options: Option[];
+  control: Control<any>;
+  name: string;
 };
-const Select = ({ value, onChange, options }: SelectProps) => {
+const Select = ({ options, name, control }: SelectProps) => {
   const [showOptions, setShowOptions] = useState(false);
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+  const {
+    field: { value, onChange },
+  } = useController({ name, control, defaultValue: "Todo" });
 
   return (
     <div
