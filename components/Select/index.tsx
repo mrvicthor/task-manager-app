@@ -1,5 +1,5 @@
 "use client";
-import { useState, forwardRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
 import { Control, useController } from "react-hook-form";
@@ -19,8 +19,9 @@ const Select = ({ options, name, control }: SelectProps) => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const {
     field: { value, onChange },
-  } = useController({ name, control, defaultValue: "Todo" });
+  } = useController({ name, control });
 
+  console.log(value);
   return (
     <div
       tabIndex={0}
@@ -28,7 +29,7 @@ const Select = ({ options, name, control }: SelectProps) => {
       className="w-full h-[42px] px-5 flex items-center border border-[#ccc] border-opacity-50 rounded relative mt-1"
     >
       <span className={`${lighTheme ? "text-black" : "text-white"}`}>
-        {value?.title ? value.title : "Todo"}
+        {value ? value : "Select one"}
       </span>
       <div className="absolute right-4 top-4">
         <Image
@@ -53,7 +54,7 @@ const Select = ({ options, name, control }: SelectProps) => {
               className={`py-1 px-4 cursor-pointer text-[#828FA3]`}
               key={item.id}
               value={item.title}
-              onClick={() => onChange(item)}
+              onClick={() => onChange(item.title)}
             >
               {item.title}
             </li>

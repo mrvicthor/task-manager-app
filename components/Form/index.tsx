@@ -23,6 +23,12 @@ const Form = () => {
     formState: { errors, isSubmitting },
   } = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      title: "",
+      description: "",
+      status: "Todo",
+      subtasks: [{ title: "", isCompleted: false }],
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -37,7 +43,7 @@ const Form = () => {
   ];
 
   const onSubmit = (data: any) => console.log(data);
-
+  console.log(errors);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
