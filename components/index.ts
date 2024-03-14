@@ -11,6 +11,7 @@ import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
 import NewColumnClient from "./NewColumn";
 import Select from "./Select";
+import SelectField from "./SelectField";
 import Sidebar from "./Sidebar";
 import StatusCircle from "./StatusCircle";
 import SvgComponent from "./SVGComponent";
@@ -35,6 +36,7 @@ export {
   NavList,
   NewColumnClient,
   Select,
+  SelectField,
   Sidebar,
   StatusCircle,
   SvgComponent,
