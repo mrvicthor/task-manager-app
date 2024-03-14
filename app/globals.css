@@ -43,6 +43,12 @@
     display: none; /*hide original SELECT element:*/
   }
 
+  /* .subtask-icon:hover {
+    color: #ea5555;
+  }
+  .subtask-icon:hover ~ .subtask-input {
+    border-color: #ea5555;
+  } */
   .select-selected {
     /* background-color: red; */
   }

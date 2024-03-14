@@ -1,6 +1,6 @@
 "use client";
-import { useRef } from "react";
-import { Select, Button, SelectField } from "..";
+import { useRef, useState } from "react";
+import { Select, Button, SelectField, SvgComponent } from "..";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
 import { useFormState } from "react-dom";
@@ -18,6 +18,7 @@ type Option = {
 };
 
 const Form = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const [state, formAction] = useFormState(createTask, {
     message: "",
   });
@@ -64,7 +65,7 @@ const Form = () => {
       action={formAction}
       className="flex flex-col gap-5 mt-5"
     >
-      <div>
+      <div className="relative">
         <label
           className={`${
             lighTheme ? "text-[#828FA3]" : "text-white"
@@ -75,14 +76,18 @@ const Form = () => {
         </label>
         <input
           {...form.register("title")}
-          className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded mt-1 bg-transparent`}
+          className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 hover:focus:outline placeholder:opacity-50 placeholder:text-sm rounded mt-1 bg-transparent focus:outline-none ${
+            form.formState.errors.title && "border-[#ea5555]"
+          }`}
           id="title"
           placeholder="e.g Take coffee break"
         />
+        {form.formState.errors.title && (
+          <small className="text-[#ea5555] absolute right-4 top-10">
+            Can&apos;t be empty
+          </small>
+        )}
       </div>
-      {form.formState.errors.title && (
-        <small>{form.formState.errors.title.message}</small>
-      )}
       <div>
         <label
           className={`${
@@ -95,7 +100,7 @@ const Form = () => {
         <textarea
           {...form.register("description")}
           id="description"
-          className={`w-full py-3 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded resize-none h-[112px] mt-1 bg-transparent`}
+          className={`w-full py-3 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 placeholder:text-sm rounded resize-none h-[112px] mt-1 bg-transparent`}
           placeholder="e.g It's always good to take a break. This 15 minutes break will recharge the battery a little."
         ></textarea>
       </div>
@@ -109,24 +114,34 @@ const Form = () => {
         </label>
 
         {fields.map((field, index) => (
-          <div className="flex gap-4 mt-1" key={field.id}>
+          <div className="flex gap-4 mt-1 relative" key={field.id}>
             <input
               {...form.register(`subtasks.${index}.title` as const)}
-              className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 placeholder:opacity-50 rounded bg-transparent`}
+              className={`w-full py-2 px-5 inline-block subtask-input border border-[#ccc] border-opacity-50 placeholder:opacity-50 placeholder:text-sm rounded bg-transparent ${
+                isHovered && "border-[#ea5555]"
+              }`}
               placeholder="e.g Drink coffee and smile"
             />{" "}
             <input
               type="hidden"
               {...form.register(`subtasks.${index}.isCompleted` as const)}
             />
-            <div onClick={() => remove(index)} className="flex items-center">
-              <Image
-                src={"/" + "./assets/icon-cross.svg"}
-                alt="cross-icon"
-                height={16}
-                width={16}
+            <div
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onClick={() => remove(index)}
+              className="flex items-center subtask-icon cursor-pointer text-[#828FA3] hover:text-[#ea5555]"
+            >
+              <SvgComponent
+                color=""
+                pathString="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"
               />
             </div>
+            {isHovered && form.getValues(`subtasks.${index}.title`) === "" && (
+              <small className="text-[#ea5555] absolute right-10 top-3 text-xs">
+                Can&apos;t be empty
+              </small>
+            )}
           </div>
         ))}
 
@@ -155,8 +170,6 @@ const Form = () => {
           status
         </label>
         <SelectField options={options} name="status" control={form.control} />
-        {/* <input type="hidden" value={getValues("status")} />
-        <Select options={options} control={control} name="status" /> */}
       </div>
       <button
         type="submit"
