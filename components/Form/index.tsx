@@ -117,7 +117,7 @@ const Form = () => {
           <div className="flex gap-4 mt-1 relative" key={field.id}>
             <input
               {...form.register(`subtasks.${index}.title` as const)}
-              className={`w-full py-2 px-5 inline-block subtask-input border border-[#ccc] border-opacity-50 placeholder:opacity-50 placeholder:text-sm rounded bg-transparent ${
+              className={`w-full py-2 px-5 inline-block subtask-input border border-[#ccc] border-opacity-50 placeholder:opacity-50 placeholder:text-sm rounded bg-transparent focus:outline-none ${
                 isHovered && "border-[#ea5555]"
               }`}
               placeholder="e.g Drink coffee and smile"
