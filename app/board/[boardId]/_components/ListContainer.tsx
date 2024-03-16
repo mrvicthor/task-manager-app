@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import Column from "./Column";
 import { NewColumnClient } from "@/components";
-import { setBoardSelected, setBoard } from "@/lib/features/board/boardSlice";
+import {
+  setBoardSelected,
+  setBoard,
+  setColumns,
+} from "@/lib/features/board/boardSlice";
 import { Subtask } from "@prisma/client";
 import { Board, Column as TColumn } from "@/lib/models";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
@@ -29,12 +33,15 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const dispatch = useAppDispatch();
 
+  console.log(columns, "vic");
+
   useEffect(() => {
     if (board) {
       dispatch(setBoardSelected(board.name));
+      dispatch(setColumns(columns));
       dispatch(setBoard(board));
     }
-  }, [board, dispatch]);
+  }, [board, dispatch, columns]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;

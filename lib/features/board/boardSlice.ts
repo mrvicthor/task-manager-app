@@ -3,11 +3,17 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { Column, Task } from "@prisma/client";
 import { Board } from "@/lib/models";
 
+interface IColumn {
+  boardId: number;
+  id: number;
+  name: string;
+  tasks: Task[];
+}
 export interface BoardState {
   name: string;
   showBoard: boolean;
   showMobileBoard: boolean;
-  columns: Column[];
+  columns: IColumn[];
   tasks: Task[];
   boards: Board | null;
 }
@@ -37,7 +43,7 @@ export const BoardSlice = createSlice({
     setBoard: (state, action: PayloadAction<Board>) => {
       state.boards = action.payload;
     },
-    setColumns: (state, action: PayloadAction<Column[]>) => {
+    setColumns: (state, action: PayloadAction<IColumn[]>) => {
       state.columns = action.payload;
     },
     setTasks: (state, action: PayloadAction<Task[]>) => {

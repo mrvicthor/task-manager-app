@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
-import { Select, Button, SelectField, SvgComponent } from "..";
+import { SelectField, SvgComponent } from "..";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
 import { useFormState } from "react-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/lib/formSchema";
-import { z } from "zod";
+import { number, z } from "zod";
 import { createTask } from "@/app/actions";
 
 type IStatus = "Todo" | "Doing" | "Done";
@@ -17,11 +17,17 @@ type Option = {
   title: string;
 };
 
-const Form = () => {
+type FormProps = {
+  boardId: number;
+};
+
+const Form = ({ boardId }: FormProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [state, formAction] = useFormState(createTask, {
+  const createTaskWitId = createTask.bind(null, boardId);
+  const [state, formAction] = useFormState(createTaskWitId, {
     message: "",
   });
+
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
@@ -61,7 +67,12 @@ const Form = () => {
   return (
     <form
       ref={formRef}
-      onSubmit={form.handleSubmit(() => formRef?.current?.submit)}
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        form.handleSubmit(() => {
+          formAction(new FormData(formRef.current!));
+        })(evt);
+      }}
       action={formAction}
       className="flex flex-col gap-5 mt-5"
     >

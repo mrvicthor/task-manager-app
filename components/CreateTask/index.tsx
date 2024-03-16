@@ -7,6 +7,10 @@ const CreateTask = () => {
   const dispatch = useAppDispatch();
   const showForm = useAppSelector((state) => state.task.showForm);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
+  const boardId = useAppSelector((state) => state.board.boards?.id);
+  const columnId = useAppSelector((state) => state.board);
+
+  console.log(columnId, "column");
 
   const hideFormToggle = () => {
     document.body.style.overflow = "auto";
@@ -27,7 +31,7 @@ const CreateTask = () => {
             } absolute mx-auto top-[20px] min-h-[659px] w-[90%] left-[16px] right-[16px] z-[10000] rounded-lg px-6 py-6`}
           >
             <p className="font-bold capitalize">add new task</p>
-            <Form />
+            <Form boardId={boardId as number} />
           </section>
         </>
       ) : null}

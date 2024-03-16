@@ -1,6 +1,6 @@
 "use server";
 import { schema } from "@/lib/formSchema";
-
+import prisma from "@/lib/prisma";
 export type FormState = {
   message: string;
 };
@@ -29,15 +29,28 @@ function formDataToJson(formData: FormData): Record<string, any> {
 }
 
 export async function createTask(
+  boardId: number,
   prevState: FormState,
   data: FormData
 ): Promise<FormState> {
   const formData = formDataToJson(data);
   const parsed = schema.safeParse(formData);
+  console.log(formData, "test");
   if (!parsed.success) {
     return {
       message: "Invalid form data",
     };
   }
+  try {
+    const task = await prisma.task.create({
+      data: {
+        title: formData.title,
+        description: formData.description,
+        subtasks: formData.subtasks,
+        status: formData.status,
+        columnId: boardId,
+      },
+    });
+  } catch (error) {}
   return { message: "New task created" };
 }
