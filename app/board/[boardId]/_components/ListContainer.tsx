@@ -30,7 +30,6 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   const [data, setData] = useState<TColumn[]>(columns);
-  const [tasks, setTasks] = useState<Task[]>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -102,17 +101,15 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   };
 
   return (
-    <>
+    <div
+      className={`${
+        lightTheme ? "bg-[#F4F7FD] text-[#000112]" : "bg-[#20212c] text-white"
+      }  ${
+        showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
+      } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto pb-8`}
+    >
       <DragDropContext onDragEnd={onDragEnd}>
-        <ol
-          className={`${
-            lightTheme
-              ? "bg-[#F4F7FD] text-[#000112]"
-              : "bg-[#20212c] text-white"
-          }  ${
-            showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
-          } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto flex gap-6 pl-6`}
-        >
+        <ol className={` flex gap-6 pl-6`}>
           <div className="gap-6 pt-6 flex">
             {data.map((column, index) => {
               return (
@@ -130,7 +127,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
           <NewColumnClient />
         </ol>
       </DragDropContext>
-    </>
+    </div>
   );
 };
 

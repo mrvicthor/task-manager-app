@@ -9,10 +9,7 @@ const CreateTask = () => {
   const dispatch = useAppDispatch();
   const showForm = useAppSelector((state) => state.task.showForm);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-  // const boardId = useAppSelector((state) => state.board.boards?.id);
   const columnId = useAppSelector((state) => state.board.columnId);
-
-  console.log(columnId, "column");
 
   const hideFormToggle = () => {
     document.body.style.overflow = "auto";

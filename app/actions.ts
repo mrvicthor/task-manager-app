@@ -35,7 +35,6 @@ export async function createTask(
 ): Promise<FormState> {
   const formData = formDataToJson(data);
   const parsed = schema.safeParse(formData);
-  console.log(formData, "test");
   if (!parsed.success) {
     return {
       message: "Invalid form data",
