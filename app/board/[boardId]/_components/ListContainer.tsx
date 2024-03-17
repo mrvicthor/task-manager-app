@@ -33,8 +33,6 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const dispatch = useAppDispatch();
 
-  console.log(columns, "vic");
-
   useEffect(() => {
     if (board) {
       dispatch(setBoardSelected(board.name));

@@ -29,7 +29,7 @@ function formDataToJson(formData: FormData): Record<string, any> {
 }
 
 export async function createTask(
-  boardId: number,
+  columnId: number,
   prevState: FormState,
   data: FormData
 ): Promise<FormState> {
@@ -41,16 +41,31 @@ export async function createTask(
       message: "Invalid form data",
     };
   }
-  try {
-    const task = await prisma.task.create({
-      data: {
-        title: formData.title,
-        description: formData.description,
-        subtasks: formData.subtasks,
-        status: formData.status,
-        columnId: boardId,
-      },
-    });
-  } catch (error) {}
+
+  const tasks = await prisma.task.findMany();
+
+  // Create a new task
+  const task = await prisma.task.create({
+    data: {
+      title: formData.title,
+      description: formData.description,
+      subtasks: { create: formData.subtasks },
+      status: formData.status,
+      columnId: tasks.find((item) => item.status === formData.status)
+        ?.columnId as number,
+    },
+  });
+
+  // Optionally, update the column to include the new task
+  const updatedColumn = await prisma.column.update({
+    where: {
+      id: tasks.find((item) => item.status === formData.status)
+        ?.columnId as number,
+    },
+    data: {
+      tasks: { connect: { id: task.id } },
+    },
+  });
+
   return { message: "New task created" };
 }

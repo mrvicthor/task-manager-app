@@ -1,4 +1,7 @@
 "use client";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useRef, useState } from "react";
 import { SelectField, SvgComponent } from "..";
 import Image from "next/image";
@@ -7,8 +10,10 @@ import { useFormState } from "react-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/lib/formSchema";
-import { number, z } from "zod";
+import { z } from "zod";
 import { createTask } from "@/app/actions";
+import { useDispatch } from "react-redux";
+import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 
 type IStatus = "Todo" | "Doing" | "Done";
 
@@ -18,16 +23,19 @@ type Option = {
 };
 
 type FormProps = {
-  boardId: number;
+  columnId: number;
 };
 
-const Form = ({ boardId }: FormProps) => {
+const Form = ({ columnId }: FormProps) => {
+  const dispatch = useDispatch();
+  const notify = () => toast(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
-  const createTaskWitId = createTask.bind(null, boardId);
+  const createTaskWitId = createTask.bind(null, columnId);
   const [state, formAction] = useFormState(createTaskWitId, {
     message: "",
   });
 
+  console.log(columnId, "vicky");
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
@@ -50,20 +58,6 @@ const Form = ({ boardId }: FormProps) => {
     { id: 3, title: "Done" },
   ];
 
-  // async function onSubmit(data: z.output<typeof schema>) {
-  //   const formData = new FormData();
-  //   formData.append("title", data.title);
-  //   formData.append("description", data.description ?? "");
-  //   formData.append("status", data.status);
-  //   if (data.subtasks) {
-  //     data.subtasks.forEach((subtask, index) => {
-  //       formData.append(`subtasks[${index}][title]`, subtask.title);
-  //       formData.append(`subtasks[${index}][isCompleted]`, String(false));
-  //     });
-  //   }
-  //   console.log(await createTask(formData));
-  // }
-  // console.log(errors);
   return (
     <form
       ref={formRef}
@@ -71,11 +65,14 @@ const Form = ({ boardId }: FormProps) => {
         evt.preventDefault();
         form.handleSubmit(() => {
           formAction(new FormData(formRef.current!));
+          dispatch(toggleTaskForm());
+          notify;
         })(evt);
       }}
       action={formAction}
       className="flex flex-col gap-5 mt-5"
     >
+      <ToastContainer />
       <div className="relative">
         <label
           className={`${

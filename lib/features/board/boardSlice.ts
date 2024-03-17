@@ -16,6 +16,7 @@ export interface BoardState {
   columns: IColumn[];
   tasks: Task[];
   boards: Board | null;
+  columnId: number | null;
 }
 
 const initialState: BoardState = {
@@ -25,6 +26,7 @@ const initialState: BoardState = {
   showMobileBoard: false,
   columns: [],
   tasks: [],
+  columnId: null,
 };
 
 export const BoardSlice = createSlice({
@@ -49,6 +51,9 @@ export const BoardSlice = createSlice({
     setTasks: (state, action: PayloadAction<Task[]>) => {
       state.tasks = action.payload;
     },
+    setColumnId: (state, action: PayloadAction<number>) => {
+      state.columnId = action.payload;
+    },
   },
 });
 
@@ -57,6 +62,7 @@ export const {
   setBoardSelected,
   toggleMobileBoard,
   setColumns,
+  setColumnId,
   setTasks,
   setBoard,
 } = BoardSlice.actions;

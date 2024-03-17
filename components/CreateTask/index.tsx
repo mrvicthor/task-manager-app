@@ -1,14 +1,16 @@
 "use client";
+import { useParams } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { Form } from "..";
 import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 
 const CreateTask = () => {
+  const params = useParams();
   const dispatch = useAppDispatch();
   const showForm = useAppSelector((state) => state.task.showForm);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-  const boardId = useAppSelector((state) => state.board.boards?.id);
-  const columnId = useAppSelector((state) => state.board);
+  // const boardId = useAppSelector((state) => state.board.boards?.id);
+  const columnId = useAppSelector((state) => state.board.columnId);
 
   console.log(columnId, "column");
 
@@ -31,7 +33,7 @@ const CreateTask = () => {
             } absolute mx-auto top-[20px] min-h-[659px] w-[90%] left-[16px] right-[16px] z-[10000] rounded-lg px-6 py-6`}
           >
             <p className="font-bold capitalize">add new task</p>
-            <Form boardId={boardId as number} />
+            <Form columnId={Number(params.boardId)} />
           </section>
         </>
       ) : null}
