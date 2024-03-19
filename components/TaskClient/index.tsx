@@ -1,8 +1,10 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { Draggable, Droppable } from "@hello-pangea/dnd";
+import { Draggable } from "@hello-pangea/dnd";
 import { Subtask } from "@prisma/client";
 import { Task } from "@/lib/models";
+import { deleteTask } from "@/app/actions";
+import { setShowDeleteTask, setTask } from "@/lib/features/task/taskSlice";
 // interface Task {
 //   id: number;
 //   title: string;
@@ -18,6 +20,7 @@ interface TaskClientProps {
   subtask: Subtask[];
 }
 const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
+  const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
 
   return (
@@ -27,6 +30,10 @@ const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onClick={() => {
+            dispatch(setShowDeleteTask());
+            dispatch(setTask(item));
+          }}
           role="button"
           className={`${
             lightTheme ? "bg-white" : "bg-[#2B2C37]"

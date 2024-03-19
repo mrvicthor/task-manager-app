@@ -1,7 +1,14 @@
 import StoreProvider from "./StoreProvider";
 import type { Metadata } from "next";
 // import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import { Header, Sidebar, Toggle, MobileMenu, CreateTask } from "@/components";
+import {
+  Header,
+  Sidebar,
+  Toggle,
+  MobileMenu,
+  CreateTask,
+  DeleteTask,
+} from "@/components";
 import "./globals.css";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -26,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps) {
               {children}
               <Toggle />
               <CreateTask />
+              <DeleteTask />
             </section>
           </section>
         </StoreProvider>

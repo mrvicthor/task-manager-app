@@ -68,3 +68,24 @@ export async function createTask(
 
   return { message: "New task created" };
 }
+
+export async function deleteTask(taskId: number) {
+  try {
+    // find the task with the given id in the database
+    const task = await prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
+    });
+    // check if the task exists, then delete it
+    if (task) {
+      await prisma.task.delete({
+        where: {
+          id: taskId,
+        },
+      });
+    }
+  } catch (error) {
+    console.log("Error deleting task", error);
+  }
+}
