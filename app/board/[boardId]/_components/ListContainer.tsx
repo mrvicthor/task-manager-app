@@ -106,7 +106,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
         lightTheme ? "bg-[#F4F7FD] text-[#000112]" : "bg-[#20212c] text-white"
       }  ${
         showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
-      } sidebar h-[100vh] min-w-[1440px] mt-16 overflow-x-auto pb-8`}
+      } sidebar h-[100vh] w-full mt-16 overflow-x-auto pb-8`}
     >
       <DragDropContext onDragEnd={onDragEnd}>
         <ol className={` flex gap-6 pl-6`}>

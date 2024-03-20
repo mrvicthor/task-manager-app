@@ -15,13 +15,6 @@ import { createTask } from "@/app/actions";
 import { useDispatch } from "react-redux";
 import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 
-type IStatus = "Todo" | "Doing" | "Done";
-
-type Option = {
-  id: number;
-  title: string;
-};
-
 type FormProps = {
   columnId: number;
 };
@@ -35,7 +28,6 @@ const Form = ({ columnId }: FormProps) => {
     message: "",
   });
 
-  console.log(columnId, "vicky");
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),

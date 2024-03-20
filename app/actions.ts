@@ -1,6 +1,7 @@
 "use server";
 import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 export type FormState = {
   message: string;
 };
@@ -65,7 +66,8 @@ export async function createTask(
       tasks: { connect: { id: task.id } },
     },
   });
-
+  // revalidatePath("/", "layout");
+  revalidatePath("/board/[boardId]", "page");
   return { message: "New task created" };
 }
 
@@ -76,15 +78,22 @@ export async function deleteTask(taskId: number) {
       where: {
         id: taskId,
       },
+      include: { subtasks: true },
     });
     // check if the task exists, then delete it
     if (task) {
+      await prisma.subtask.deleteMany({
+        where: {
+          taskId,
+        },
+      });
       await prisma.task.delete({
         where: {
           id: taskId,
         },
       });
     }
+    revalidatePath("/board/[boardId]", "page");
   } catch (error) {
     console.log("Error deleting task", error);
   }

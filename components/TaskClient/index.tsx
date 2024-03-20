@@ -22,6 +22,10 @@ interface TaskClientProps {
 const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
+  const handleDeleteTask = (task: Task) => {
+    dispatch(setShowDeleteTask());
+    dispatch(setTask(item));
+  };
 
   return (
     <Draggable draggableId={item.id.toString()} index={index}>
@@ -30,10 +34,7 @@ const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => {
-            dispatch(setShowDeleteTask());
-            dispatch(setTask(item));
-          }}
+          onClick={() => handleDeleteTask(item)}
           role="button"
           className={`${
             lightTheme ? "bg-white" : "bg-[#2B2C37]"

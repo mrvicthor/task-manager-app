@@ -12,7 +12,7 @@ export const MainScreen = ({ children }: MainScreenProps) => {
     <main
       className={`${lightTheme ? "bg-[#F4F7FD]" : "bg-[#20212c]"} ${
         showSidebar ? "md:translate-x-[18.75rem]" : "translate-x-0"
-      } sidebar h-[100vh] w-full overflow-x-auto mt-16`}
+      } sidebar h-[100vh] w-full mt-16`}
     >
       {children}
     </main>
