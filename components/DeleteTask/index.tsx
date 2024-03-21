@@ -12,7 +12,7 @@ const DeleteTask = () => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const taskToDelete = useAppSelector((state) => state.task.task);
   const notify = () =>
-    toast.success(`Task with task ${taskToDelete?.id} successfully deleted`);
+    toast.success(`Task with id: ${taskToDelete?.id} was successfully deleted`);
 
   if (!showDelete) return null;
   return (
