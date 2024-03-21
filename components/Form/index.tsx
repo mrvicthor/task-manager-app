@@ -1,7 +1,7 @@
 "use client";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 import { useRef, useState } from "react";
 import { SelectField, SvgComponent } from "..";
 import Image from "next/image";
@@ -21,7 +21,7 @@ type FormProps = {
 
 const Form = ({ columnId }: FormProps) => {
   const dispatch = useDispatch();
-  const notify = () => toast(`Task added to column ${columnId}`);
+  const notify = () => toast.success(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
   const createTaskWitId = createTask.bind(null, columnId);
   const [state, formAction] = useFormState(createTaskWitId, {
@@ -58,13 +58,12 @@ const Form = ({ columnId }: FormProps) => {
         form.handleSubmit(() => {
           formAction(new FormData(formRef.current!));
           dispatch(toggleTaskForm());
-          notify;
+          notify();
         })(evt);
       }}
       action={formAction}
       className="flex flex-col gap-5 mt-5"
     >
-      <ToastContainer />
       <div className="relative">
         <label
           className={`${

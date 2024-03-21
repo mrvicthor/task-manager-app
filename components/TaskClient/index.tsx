@@ -3,7 +3,6 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { Draggable } from "@hello-pangea/dnd";
 import { Subtask } from "@prisma/client";
 import { Task } from "@/lib/models";
-import { deleteTask } from "@/app/actions";
 import { setShowDeleteTask, setTask } from "@/lib/features/task/taskSlice";
 // interface Task {
 //   id: number;
