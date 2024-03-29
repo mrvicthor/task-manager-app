@@ -21,6 +21,7 @@ import { Toggle } from "./Toggle";
 import { MobileClientComponent } from "./MobileClient";
 import TaskClient from "./TaskClient";
 import Task from "./Task";
+import TaskDetails from "./TaskDetails";
 
 export {
   Boards,
@@ -44,6 +45,7 @@ export {
   SvgComponent,
   Task,
   TaskClient,
+  TaskDetails,
   ThemeToggle,
   Toggle,
 };

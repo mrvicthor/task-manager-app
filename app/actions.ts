@@ -67,7 +67,7 @@ export async function createTask(
     },
   });
   // revalidatePath("/", "layout");
-  revalidatePath("/board/[boardId]", "page");
+  revalidatePath(`/board/${columnId}`, "page");
   return { message: "New task created" };
 }
 

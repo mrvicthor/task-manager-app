@@ -3,7 +3,12 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { Draggable } from "@hello-pangea/dnd";
 import { Subtask } from "@prisma/client";
 import { Task } from "@/lib/models";
-import { setShowDeleteTask, setTask } from "@/lib/features/task/taskSlice";
+import {
+  setSubtask,
+  setTask,
+  setShowTaskDetails,
+} from "@/lib/features/task/taskSlice";
+import { list } from "postcss";
 // interface Task {
 //   id: number;
 //   title: string;
@@ -21,9 +26,11 @@ interface TaskClientProps {
 const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-  const handleDeleteTask = (task: Task) => {
-    dispatch(setShowDeleteTask());
+  const taskSubtask = subtask.filter((list) => list.taskId === item.id);
+  const handleShowTaskDetails = (task: Task) => {
+    dispatch(setShowTaskDetails());
     dispatch(setTask(item));
+    dispatch(setSubtask(taskSubtask));
   };
 
   return (
@@ -33,7 +40,7 @@ const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => handleDeleteTask(item)}
+          onClick={() => handleShowTaskDetails(item)}
           role="button"
           className={`${
             lightTheme ? "bg-white" : "bg-[#2B2C37]"

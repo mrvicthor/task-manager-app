@@ -8,6 +8,7 @@ import {
   MobileMenu,
   CreateTask,
   DeleteTask,
+  TaskDetails,
 } from "@/components";
 import "./globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps) {
               <Toggle />
               <CreateTask />
               <DeleteTask />
+              <TaskDetails />
             </section>
           </section>
         </StoreProvider>
