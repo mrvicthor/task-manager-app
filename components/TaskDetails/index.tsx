@@ -9,7 +9,10 @@ const TaskDetails = () => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const taskDetails = useAppSelector((state) => state.task.task);
   const subTasks = useAppSelector((state) => state.task.subtask);
-  console.log(subTasks);
+  const numberOfCompletedSubtasks = subTasks?.filter(
+    (subtask) => subtask.isCompleted === true
+  ).length;
+
   if (!showTaskDetails) return null;
   return (
     <>
@@ -20,7 +23,7 @@ const TaskDetails = () => {
       <section
         className={`${
           lightTheme ? "bg-[#ffffff]" : "bg-[#2b2c37]"
-        } absolute mx-auto top-[50%] -translate-y-[50%] min-h-[557px] w-[90%] left-[50%] z-[10000] -translate-x-[50%] rounded-lg px-6 py-6 delete-modal space-y-6 md:w-[480px] md:min-h-[523px]`}
+        } absolute mx-auto top-[50%] -translate-y-[50%] min-h-[557px] w-[90%] left-[50%] z-[10000] -translate-x-[50%] rounded-lg px-6 py-6 delete-modal space-y-4 md:w-[480px] md:min-h-[523px]`}
       >
         <div className="flex justify-between gap-4 h-[69px]">
           <p className="font-semibold">{taskDetails?.title}</p>{" "}
@@ -36,9 +39,34 @@ const TaskDetails = () => {
         <p className="text-xs text-[#828FA3] leading-6">
           {taskDetails?.description}
         </p>
-        <form>
-          <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-          <label htmlFor="vehicle1"> I have a bike</label>
+        <form className="flex flex-col gap-4">
+          <p className="text-[#828FA3] text-xs">
+            Subtasks ({numberOfCompletedSubtasks} of {subTasks?.length})
+          </p>
+          {subTasks?.map((subtask) => (
+            <div
+              key={subtask.id}
+              className={`${
+                lightTheme ? "bg-[#f4f7fd]" : "bg-[#20212c]"
+              } flex gap-4 items-center px-4 rounded py-2`}
+            >
+              <input
+                type="checkbox"
+                id={subtask.title}
+                name={subtask.title}
+                value={subtask.title}
+                checked={subtask.isCompleted}
+              />
+              <label
+                htmlFor="vehicle1"
+                className={`${
+                  subtask.isCompleted && "line-through text-[#828FA3]"
+                } text-xs`}
+              >
+                {subtask.title}
+              </label>
+            </div>
+          ))}
         </form>
       </section>
     </>
