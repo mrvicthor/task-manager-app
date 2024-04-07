@@ -12,7 +12,7 @@ const TaskDetails = () => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const taskDetails = useAppSelector((state) => state.task.task);
   const subTasks = useAppSelector((state) => state.task.subtask);
-  console.log(subTasks);
+
   const numberOfCompletedSubtasks = subTasks?.filter(
     (subtask) => subtask.isCompleted === true
   ).length;
