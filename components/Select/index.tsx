@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { useAppSelector } from "@/lib/hooks";
-import { Control, useController } from "react-hook-form";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { setTask } from "@/lib/features/task/taskSlice";
 
 type Option = {
   id: number;
@@ -11,17 +11,20 @@ type Option = {
 
 type SelectProps = {
   options: Option[];
-  control: Control<any>;
-  name: string;
 };
-const Select = ({ options, name, control }: SelectProps) => {
+const Select = ({ options }: SelectProps) => {
+  const dispatch = useAppDispatch();
   const [showOptions, setShowOptions] = useState(false);
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
-  const {
-    field: { value, onChange },
-  } = useController({ name, control });
+  const task = useAppSelector((state) => state.task.task);
 
-  console.log(value);
+  const handleStatusUpdate = (value: string) => {
+    console.log(value);
+    if (task) {
+      dispatch(setTask({ ...task, status: value }));
+    }
+  };
+
   return (
     <div
       tabIndex={0}
@@ -29,7 +32,7 @@ const Select = ({ options, name, control }: SelectProps) => {
       className="w-full h-[42px] px-5 flex items-center border border-[#ccc] border-opacity-50 rounded relative mt-1"
     >
       <span className={`${lighTheme ? "text-black" : "text-white"}`}>
-        {value ? value : "Select one"}
+        {task?.status}
       </span>
       <div className="absolute right-4 top-4">
         <Image
@@ -54,7 +57,7 @@ const Select = ({ options, name, control }: SelectProps) => {
               className={`py-1 px-4 cursor-pointer text-[#828FA3]`}
               key={item.id}
               value={item.title}
-              onClick={() => onChange(item.title)}
+              onClick={() => handleStatusUpdate(item.title)}
             >
               {item.title}
             </li>

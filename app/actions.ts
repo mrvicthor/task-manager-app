@@ -1,6 +1,7 @@
 "use server";
 import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
+import { Subtask } from "@/lib/models";
 import { revalidatePath } from "next/cache";
 export type FormState = {
   message: string;
@@ -96,5 +97,53 @@ export async function deleteTask(taskId: number) {
     revalidatePath("/board/[boardId]", "page");
   } catch (error) {
     console.log("Error deleting task", error);
+  }
+}
+
+export async function updateSubtask(
+  taskId: number,
+  subtaskId: number,
+  updatedSubtaskData: Subtask
+) {
+  try {
+    // Retrieve the task object from the database
+    const task = await prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
+      include: {
+        subtasks: true,
+      },
+    });
+
+    // Find the index of the subtask to update
+    const subtaskIndex = task?.subtasks.findIndex(
+      (subtask) => subtask.id === subtaskId
+    );
+    if (subtaskIndex === -1) {
+      throw new Error("Subtask not found");
+    }
+    if (task && subtaskIndex) {
+      task.subtasks[subtaskIndex] = {
+        ...task.subtasks[subtaskIndex],
+        ...updatedSubtaskData,
+      };
+    }
+
+    // Save the updated task object back to the database
+    const updatedTask = await prisma.task.update({
+      where: {
+        id: taskId,
+      },
+      data: {
+        subtasks: {
+          set: task?.subtasks,
+        },
+      },
+    });
+    return updatedTask;
+  } catch (error) {
+    console.error("Error updating subtask:", error);
+    throw error;
   }
 }
