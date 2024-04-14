@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Subtask } from "@/lib/models";
 import { setShowTaskDetails, setSubtask } from "@/lib/features/task/taskSlice";
@@ -8,6 +9,7 @@ import Select from "../Select";
 
 const TaskDetails = () => {
   const dispatch = useAppDispatch();
+
   const showTaskDetails = useAppSelector((state) => state.task.showTaskDetails);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const taskDetails = useAppSelector((state) => state.task.task);
@@ -38,7 +40,6 @@ const TaskDetails = () => {
         )
       );
     }
-    console.log(item);
     updateSubtask(taskId, subtaskId, item);
   };
 

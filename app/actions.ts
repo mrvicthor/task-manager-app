@@ -3,6 +3,7 @@ import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
 import { Subtask } from "@/lib/models";
 import { revalidatePath } from "next/cache";
+import { Task } from "@/lib/models";
 export type FormState = {
   message: string;
 };
@@ -144,6 +145,45 @@ export async function updateSubtask(
     return updatedTask;
   } catch (error) {
     console.error("Error updating subtask:", error);
+    throw error;
+  }
+}
+
+export async function updateStatus(
+  boardId: number,
+  task: Task,
+  newStatus: string
+) {
+  try {
+    // Find the task to update the status
+    const taskToUpdate = await prisma.task.findUnique({
+      where: { id: task.id },
+    });
+    if (!taskToUpdate) {
+      throw new Error(`Column for ${task.id} not found`);
+    }
+
+    // find the column to update
+    const newColumnToUpdate = await prisma.column.findFirst({
+      where: {
+        boardId,
+        name: newStatus,
+      },
+    });
+
+    if (!newColumnToUpdate) {
+      throw new Error(`Column with status ${newStatus} not found.`);
+    }
+
+    await prisma.task.update({
+      where: { id: taskToUpdate?.id },
+      data: {
+        column: { connect: { id: newColumnToUpdate.id } },
+        status: newStatus,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating status:", error);
     throw error;
   }
 }

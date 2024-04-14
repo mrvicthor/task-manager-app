@@ -3,6 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setTask } from "@/lib/features/task/taskSlice";
+import { useParams } from "next/navigation";
+import { updateStatus } from "@/app/actions";
 
 type Option = {
   id: number;
@@ -13,15 +15,16 @@ type SelectProps = {
   options: Option[];
 };
 const Select = ({ options }: SelectProps) => {
+  const params = useParams();
   const dispatch = useAppDispatch();
   const [showOptions, setShowOptions] = useState(false);
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const task = useAppSelector((state) => state.task.task);
 
   const handleStatusUpdate = (value: string) => {
-    console.log(value);
     if (task) {
       dispatch(setTask({ ...task, status: value }));
+      updateStatus(Number(params.boardId), task, value);
     }
   };
 
