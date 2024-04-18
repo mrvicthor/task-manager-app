@@ -22,6 +22,7 @@ import { MobileClientComponent } from "./MobileClient";
 import TaskClient from "./TaskClient";
 import Task from "./Task";
 import TaskDetails from "./TaskDetails";
+import TaskOptions from "./TaskOptions";
 
 export {
   Boards,
@@ -46,6 +47,7 @@ export {
   Task,
   TaskClient,
   TaskDetails,
+  TaskOptions,
   ThemeToggle,
   Toggle,
 };

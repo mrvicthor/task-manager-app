@@ -1,9 +1,11 @@
 "use server";
 import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
+import { NextRequest } from "next/server";
 import { Subtask } from "@/lib/models";
 import { revalidatePath } from "next/cache";
 import { Task } from "@/lib/models";
+import { redirect } from "next/navigation";
 export type FormState = {
   message: string;
 };
@@ -59,7 +61,7 @@ export async function createTask(
   });
 
   // Optionally, update the column to include the new task
-  const updatedColumn = await prisma.column.update({
+  await prisma.column.update({
     where: {
       id: tasks.find((item) => item.status === formData.status)
         ?.columnId as number,
@@ -68,8 +70,7 @@ export async function createTask(
       tasks: { connect: { id: task.id } },
     },
   });
-  // revalidatePath("/", "layout");
-  revalidatePath(`/board/${columnId}`, "page");
+  revalidatePath(`/board/[${columnId}]`, "page");
   return { message: "New task created" };
 }
 
@@ -95,7 +96,7 @@ export async function deleteTask(taskId: number) {
         },
       });
     }
-    revalidatePath("/board/[boardId]", "page");
+    revalidatePath(`/board`);
   } catch (error) {
     console.log("Error deleting task", error);
   }

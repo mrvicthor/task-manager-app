@@ -1,13 +1,16 @@
 "use client";
+import { useState } from "react";
+import Select from "../Select";
+import { TaskOptions } from "@/components";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Subtask } from "@/lib/models";
 import { setShowTaskDetails, setSubtask } from "@/lib/features/task/taskSlice";
 import { updateSubtask } from "@/app/actions";
-import Select from "../Select";
 
 const TaskDetails = () => {
+  const [isToggle, setIsToggle] = useState(true);
   const dispatch = useAppDispatch();
 
   const showTaskDetails = useAppSelector((state) => state.task.showTaskDetails);
@@ -24,6 +27,8 @@ const TaskDetails = () => {
     { id: 2, title: "Doing" },
     { id: 3, title: "Done" },
   ];
+
+  const toggleTaskOptions = () => setIsToggle(!isToggle);
   const handleUpdateSubtask = (
     taskId: number,
     subtaskId: number,
@@ -50,6 +55,16 @@ const TaskDetails = () => {
         className="fixed top-0 left-0 right-0 bottom-0 z-[9999] size-full bg-[#000] opacity-50 cursor-pointer"
         onClick={() => dispatch(setShowTaskDetails())}
       />
+      {isToggle && (
+        <div
+          className={`${
+            lightTheme ? "bg-[#ffffff]" : "bg-[#20212c]"
+          } absolute top-[40%] z-[20000] left-[58%] w-[192px] rounded px-4 py-4`}
+        >
+          <TaskOptions isToggle={isToggle} toggleTaskOptions={setIsToggle} />
+        </div>
+      )}
+
       <section
         className={`${
           lightTheme ? "bg-[#ffffff]" : "bg-[#2b2c37]"
@@ -57,7 +72,7 @@ const TaskDetails = () => {
       >
         <div className="flex justify-between gap-4 h-[69px]">
           <p className="font-semibold">{taskDetails?.title}</p>{" "}
-          <div className="pt-7">
+          <div className="pt-7 cursor-pointer">
             <Image
               src={"/" + "./assets/icon-vertical-ellipsis.svg"}
               alt="vertical-ellipsis"
