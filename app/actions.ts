@@ -61,7 +61,7 @@ export async function createTask(
   });
 
   // Optionally, update the column to include the new task
-  await prisma.column.update({
+  const updateColumn = await prisma.column.update({
     where: {
       id: tasks.find((item) => item.status === formData.status)
         ?.columnId as number,
