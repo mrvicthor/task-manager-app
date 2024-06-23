@@ -15,7 +15,6 @@ const TaskOptions = ({ isToggle, toggleTaskOptions }: ITaskOptions) => {
   const dispatch = useAppDispatch();
 
   const handleShowDeleteBoard = () => {
-    console.log("clicked");
     dispatch(setShowTaskDetails());
     dispatch(setShowDeleteTask());
   };

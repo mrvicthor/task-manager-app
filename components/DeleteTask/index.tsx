@@ -40,6 +40,7 @@ const DeleteTask = () => {
               deleteTask(taskToDelete?.id as number);
               notify();
               dispatch(setShowDeleteTask());
+              window.location.reload();
             }}
           >
             Delete

@@ -173,6 +173,7 @@ const Form = ({ columnId }: FormProps) => {
       <button
         type="submit"
         className="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white"
+        onClick={() => window.location.reload()}
       >
         create task
       </button>

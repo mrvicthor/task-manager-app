@@ -2,36 +2,14 @@
 import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
 import { NextRequest } from "next/server";
+import { formDataToJson } from "@/utils/formatDataToJson";
 import { Subtask } from "@/lib/models";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { Task } from "@/lib/models";
 import { redirect } from "next/navigation";
 export type FormState = {
   message: string;
 };
-
-function formDataToJson(formData: FormData): Record<string, any> {
-  const data: Record<string, any> = {};
-
-  const parseValue = (value: string) => {
-    const lower = value.toLowerCase();
-    return lower === "true" ? true : lower === "false" ? false : value;
-  };
-
-  formData.forEach((value, key) => {
-    const keys = key.split(".");
-    const lastKey = keys.pop()!;
-    let current = data;
-    keys.forEach((k, index) => {
-      current = current[k] ??= /^\d+$/.test(keys[index + 1]) ? [] : {};
-    });
-    current[lastKey] = Array.isArray(current[lastKey])
-      ? [...current[lastKey], parseValue(value as string)]
-      : parseValue(value as string);
-  });
-
-  return data;
-}
 
 export async function createTask(
   columnId: number,
@@ -61,7 +39,7 @@ export async function createTask(
   });
 
   // Optionally, update the column to include the new task
-  const updateColumn = await prisma.column.update({
+  await prisma.column.update({
     where: {
       id: tasks.find((item) => item.status === formData.status)
         ?.columnId as number,
@@ -70,7 +48,10 @@ export async function createTask(
       tasks: { connect: { id: task.id } },
     },
   });
-  revalidatePath(`/board/[${columnId}]`, "page");
+  // revalidatePath("/board");
+  revalidateTag("prisma-column");
+  revalidatePath(`/board/${columnId}`);
+  redirect(`/board/${columnId}`);
   return { message: "New task created" };
 }
 
