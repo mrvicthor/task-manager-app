@@ -89,44 +89,28 @@ export async function updateSubtask(
   updatedSubtaskData: Subtask
 ) {
   try {
-    // Retrieve the task object from the database
-    const task = await prisma.task.findUnique({
+    // Find the subtask with the given id and taskId in the database
+    const subtask = await prisma.subtask.findFirst({
       where: {
-        id: taskId,
-      },
-      include: {
-        subtasks: true,
+        id: subtaskId,
+        taskId,
       },
     });
 
-    // Find the index of the subtask to update
-    const subtaskIndex = task?.subtasks.findIndex(
-      (subtask) => subtask.id === subtaskId
-    );
-    if (subtaskIndex === -1) {
-      throw new Error("Subtask not found");
+    if (!subtask) {
+      throw new Error(`Subtask with id ${subtaskId} for ${taskId} not found`);
     }
-    if (task && subtaskIndex) {
-      task.subtasks[subtaskIndex] = {
-        ...task.subtasks[subtaskIndex],
-        ...updatedSubtaskData,
-      };
-    }
-
-    // Save the updated task object back to the database
-    const updatedTask = await prisma.task.update({
+    const updatedTask = await prisma.subtask.update({
       where: {
-        id: taskId,
+        id: subtaskId,
       },
       data: {
-        subtasks: {
-          set: task?.subtasks,
-        },
+        isCompleted: updatedSubtaskData.isCompleted,
       },
     });
     return updatedTask;
   } catch (error) {
-    console.error("Error updating subtask:", error);
+    console.error("Error updating subtask: ", error);
     throw error;
   }
 }

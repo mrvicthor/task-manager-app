@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Subtask } from "@/lib/models";
 import { setShowTaskDetails, setSubtask } from "@/lib/features/task/taskSlice";
 import { updateSubtask } from "@/app/actions";
+import { error } from "console";
 
 const TaskDetails = () => {
   const [isToggle, setIsToggle] = useState(true);
@@ -45,7 +46,10 @@ const TaskDetails = () => {
         )
       );
     }
-    updateSubtask(taskId, subtaskId, item);
+    updateSubtask(taskId, subtaskId, item)
+      .then((data) => console.log("update successful: ", data))
+      .catch((error) => console.error("update failed: ", error));
+    window.location.reload();
   };
 
   if (!showTaskDetails) return null;
@@ -100,13 +104,12 @@ const TaskDetails = () => {
                 id={subtask.title}
                 name={subtask.title}
                 value={subtask.title}
-                onChange={() =>
-                  handleUpdateSubtask(
-                    taskDetails?.id as number,
-                    subtask.id,
-                    subtask
-                  )
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleUpdateSubtask(taskDetails?.id as number, subtask.id, {
+                    ...subtask,
+                    isCompleted: e.target.checked,
+                  });
+                }}
                 checked={subtask.isCompleted}
               />
               <label
