@@ -59,6 +59,9 @@ const Form = ({ columnId }: FormProps) => {
           formAction(new FormData(formRef.current!));
           dispatch(toggleTaskForm());
           notify();
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         })(evt);
       }}
       action={formAction}
@@ -173,7 +176,6 @@ const Form = ({ columnId }: FormProps) => {
       <button
         type="submit"
         className="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white"
-        onClick={() => window.location.reload()}
       >
         create task
       </button>
