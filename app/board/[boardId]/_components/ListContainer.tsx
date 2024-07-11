@@ -119,7 +119,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
               {data.map((column, index) => {
                 return (
                   <Column
-                    key={column.id}
+                    key={column.name}
                     id={column.id}
                     status={column.name}
                     data={column.tasks}

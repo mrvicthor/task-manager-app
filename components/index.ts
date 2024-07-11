@@ -3,6 +3,7 @@ import BoardTitle from "./BoardTitle";
 import Button from "./Button";
 import CreateTask from "./CreateTask";
 import DeleteTask from "./DeleteTask";
+import EditTask from "./EditTask";
 import Form from "./Form";
 import HomeScreen from "./Home";
 import Header from "./Header";
@@ -30,6 +31,7 @@ export {
   Button,
   CreateTask,
   DeleteTask,
+  EditTask,
   Form,
   HomeScreen,
   Header,

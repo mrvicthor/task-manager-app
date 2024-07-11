@@ -4,7 +4,7 @@ import { Subtask } from "@prisma/client";
 import { Task as List } from "@/lib/models";
 import { Droppable } from "@hello-pangea/dnd";
 import { StatusCircle, TaskClient, Task } from "@/components";
-import { setColumnId } from "@/lib/features/board/boardSlice";
+import { setColumnType } from "@/lib/features/board/boardSlice";
 import { useDispatch } from "react-redux";
 
 interface ColumnProps {
@@ -17,7 +17,7 @@ interface ColumnProps {
 const Column = ({ status, data, subtask, index, id }: ColumnProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setColumnId(id));
+    dispatch(setColumnType(id));
   }, [dispatch, id]);
   return (
     <li>

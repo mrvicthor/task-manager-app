@@ -51,7 +51,7 @@ export const BoardSlice = createSlice({
     setTasks: (state, action: PayloadAction<Task[]>) => {
       state.tasks = action.payload;
     },
-    setColumnId: (state, action: PayloadAction<number>) => {
+    setColumnType: (state, action: PayloadAction<number>) => {
       state.columnId = action.payload;
     },
   },
@@ -62,7 +62,7 @@ export const {
   setBoardSelected,
   toggleMobileBoard,
   setColumns,
-  setColumnId,
+  setColumnType,
   setTasks,
   setBoard,
 } = BoardSlice.actions;

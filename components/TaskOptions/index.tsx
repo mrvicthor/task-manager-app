@@ -3,25 +3,36 @@ import React, { Dispatch, SetStateAction } from "react";
 import {
   setShowTaskDetails,
   setShowDeleteTask,
+  toggleEditTaskForm,
 } from "@/lib/features/task/taskSlice";
 import { useAppDispatch } from "@/lib/hooks";
 
 type ITaskOptions = {
-  isToggle: boolean;
   toggleTaskOptions: Dispatch<SetStateAction<boolean>>;
 };
 
-const TaskOptions = ({ isToggle, toggleTaskOptions }: ITaskOptions) => {
+const TaskOptions = ({ toggleTaskOptions }: ITaskOptions) => {
   const dispatch = useAppDispatch();
 
   const handleShowDeleteBoard = () => {
     dispatch(setShowTaskDetails());
     dispatch(setShowDeleteTask());
+    toggleTaskOptions(false);
+  };
+
+  const showForm = () => {
+    document.body.style.overflow = "hidden";
+    dispatch(toggleEditTaskForm());
+    toggleTaskOptions(false);
+    dispatch(setShowTaskDetails());
   };
 
   return (
     <div className="space-y-6">
-      <p className="text-[#828FA3] capitalize text-xs cursor-pointer">
+      <p
+        onClick={showForm}
+        className="text-[#828FA3] capitalize text-xs cursor-pointer"
+      >
         edit task
       </p>
       <p

@@ -133,4 +133,12 @@
       rgba(43, 44, 55, 0.13) 100%
     );
   }
+
+  .show-task--options {
+    display: none;
+  }
+
+  .task-option-elipsis:hover + .show-task--options {
+    display: block;
+  }
 }

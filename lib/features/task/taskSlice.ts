@@ -4,6 +4,7 @@ export interface CreateTaskState {
   showForm: boolean;
   showDeleteTask: boolean;
   showTaskDetails: boolean;
+  showEditTask: boolean;
   task: Task | null;
   subtask: Subtask[] | null;
 }
@@ -12,6 +13,7 @@ const initialState: CreateTaskState = {
   showForm: false,
   showDeleteTask: false,
   showTaskDetails: false,
+  showEditTask: false,
   task: null,
   subtask: null,
 };
@@ -22,6 +24,9 @@ export const CreateTaskSlice = createSlice({
   reducers: {
     toggleTaskForm: (state) => {
       state.showForm = !state.showForm;
+    },
+    toggleEditTaskForm: (state) => {
+      state.showEditTask = !state.showEditTask;
     },
     setShowDeleteTask: (state) => {
       state.showDeleteTask = !state.showDeleteTask;
@@ -40,6 +45,7 @@ export const CreateTaskSlice = createSlice({
 
 export const {
   toggleTaskForm,
+  toggleEditTaskForm,
   setShowDeleteTask,
   setTask,
   setShowTaskDetails,

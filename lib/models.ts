@@ -34,3 +34,14 @@ export interface Subtask {
   isCompleted: boolean;
   taskId: number;
 }
+
+type TaskStatus = "Todo" | "Doing" | "Done";
+
+export interface TaskProps {
+  id: number;
+  columnId: number;
+  title: string;
+  description: string | null;
+  status: TaskStatus;
+  subtasks: Subtask[];
+}

@@ -11,31 +11,40 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/lib/formSchema";
 import { z } from "zod";
-import { createTask } from "@/app/actions";
+import { TaskProps } from "@/lib/models";
+import { createTask, updateTask } from "@/app/actions";
 import { useDispatch } from "react-redux";
-import { toggleTaskForm } from "@/lib/features/task/taskSlice";
+import {
+  toggleTaskForm,
+  toggleEditTaskForm,
+} from "@/lib/features/task/taskSlice";
 
 type FormProps = {
   columnId: number;
+  taskData?: TaskProps;
 };
 
-const Form = ({ columnId }: FormProps) => {
+const Form = ({ columnId, taskData }: FormProps) => {
   const dispatch = useDispatch();
   const notify = () => toast.success(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
   const createTaskWitId = createTask.bind(null, columnId);
-  const [state, formAction] = useFormState(createTaskWitId, {
-    message: "",
-  });
+  const updateTaskWitId = updateTask.bind(null, taskData?.id as number);
+  const [state, formAction] = useFormState(
+    taskData ? updateTaskWitId : createTaskWitId,
+    {
+      message: "",
+    }
+  );
 
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: "",
-      description: "",
-      status: "Todo",
-      subtasks: [{ title: "", isCompleted: false }],
+      title: taskData?.title ?? "",
+      description: taskData?.description ?? "",
+      status: taskData?.status ?? "Todo",
+      subtasks: taskData?.subtasks ?? [{ title: "", isCompleted: false }],
     },
   });
 
@@ -57,7 +66,11 @@ const Form = ({ columnId }: FormProps) => {
         evt.preventDefault();
         form.handleSubmit(() => {
           formAction(new FormData(formRef.current!));
-          dispatch(toggleTaskForm());
+          if (taskData) {
+            dispatch(toggleEditTaskForm());
+          } else {
+            dispatch(toggleTaskForm());
+          }
           notify();
           setTimeout(() => {
             window.location.reload();
@@ -171,13 +184,18 @@ const Form = ({ columnId }: FormProps) => {
         >
           status
         </label>
-        <SelectField options={options} name="status" control={form.control} />
+        <SelectField
+          options={options}
+          name="status"
+          control={form.control}
+          editValue={taskData?.status}
+        />
       </div>
       <button
         type="submit"
         className="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white"
       >
-        create task
+        {taskData ? "save changes" : "create task"}
       </button>
     </form>
   );

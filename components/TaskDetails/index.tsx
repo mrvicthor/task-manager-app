@@ -3,21 +3,21 @@ import { useState } from "react";
 import Select from "../Select";
 import { TaskOptions } from "@/components";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Subtask } from "@/lib/models";
 import { setShowTaskDetails, setSubtask } from "@/lib/features/task/taskSlice";
 import { updateSubtask } from "@/app/actions";
-import { error } from "console";
 
 const TaskDetails = () => {
-  const [isToggle, setIsToggle] = useState(true);
+  const [isToggle, setIsToggle] = useState(false);
   const dispatch = useAppDispatch();
 
   const showTaskDetails = useAppSelector((state) => state.task.showTaskDetails);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const taskDetails = useAppSelector((state) => state.task.task);
   const subTasks = useAppSelector((state) => state.task.subtask);
+
+  console.log("task details", taskDetails);
 
   const numberOfCompletedSubtasks = subTasks?.filter(
     (subtask) => subtask.isCompleted === true
@@ -49,7 +49,6 @@ const TaskDetails = () => {
     updateSubtask(taskId, subtaskId, item)
       .then((data) => console.log("update successful: ", data))
       .catch((error) => console.error("update failed: ", error));
-    window.location.reload();
   };
 
   if (!showTaskDetails) return null;
@@ -59,13 +58,14 @@ const TaskDetails = () => {
         className="fixed top-0 left-0 right-0 bottom-0 z-[9999] size-full bg-[#000] opacity-50 cursor-pointer"
         onClick={() => dispatch(setShowTaskDetails())}
       />
+
       {isToggle && (
         <div
           className={`${
             lightTheme ? "bg-[#ffffff]" : "bg-[#20212c]"
-          } absolute top-[40%] z-[20000] left-[58%] w-[192px] rounded px-4 py-4`}
+          } absolute top-[38%] z-[20000] left-[58%] w-[192px] rounded px-4 py-4`}
         >
-          <TaskOptions isToggle={isToggle} toggleTaskOptions={setIsToggle} />
+          <TaskOptions toggleTaskOptions={setIsToggle} />
         </div>
       )}
 
@@ -76,7 +76,7 @@ const TaskDetails = () => {
       >
         <div className="flex justify-between gap-4 h-[69px]">
           <p className="font-semibold">{taskDetails?.title}</p>{" "}
-          <div className="pt-7 cursor-pointer">
+          <div className={`pt-7 cursor-pointer`} onClick={toggleTaskOptions}>
             <Image
               src={"/" + "./assets/icon-vertical-ellipsis.svg"}
               alt="vertical-ellipsis"
@@ -85,10 +85,14 @@ const TaskDetails = () => {
             />
           </div>
         </div>
-        <p className="text-xs text-[#828FA3] leading-6">
-          {taskDetails?.description}
-        </p>
-        <div className="flex flex-col gap-4">
+        {taskDetails?.description ? (
+          <p className="text-xs text-[#828FA3] leading-6">
+            {taskDetails?.description}
+          </p>
+        ) : (
+          <p className="pt-6" />
+        )}
+        <div className={`flex flex-col gap-4 `}>
           <p className="text-[#828FA3] text-xs">
             Subtasks ({numberOfCompletedSubtasks} of {subTasks?.length})
           </p>

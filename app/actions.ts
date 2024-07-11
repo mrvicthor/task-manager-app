@@ -1,57 +1,64 @@
 "use server";
 import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
-import { NextRequest } from "next/server";
 import { formDataToJson } from "@/utils/formatDataToJson";
 import { Subtask } from "@/lib/models";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { Task } from "@/lib/models";
-import { redirect } from "next/navigation";
 export type FormState = {
   message: string;
 };
 
 export async function createTask(
-  columnId: number,
+  boardId: number,
   prevState: FormState,
   data: FormData
 ): Promise<FormState> {
   const formData = formDataToJson(data);
   const parsed = schema.safeParse(formData);
+
   if (!parsed.success) {
     return {
       message: "Invalid form data",
     };
   }
+  try {
+    const column = await prisma.column.findFirst({
+      where: {
+        boardId: boardId,
+        name: formData.status,
+      },
+    });
 
-  const tasks = await prisma.task.findMany();
+    if (!column) {
+      throw new Error(
+        `Column with status ${formData.status} not found on board ${boardId}`
+      );
+    }
+    // Create a new task
+    const task = await prisma.task.create({
+      data: {
+        title: formData.title,
+        description: formData.description.trim(),
+        subtasks: { create: formData.subtasks || [] },
+        status: formData.status,
+        columnId: column.id,
+      },
+    });
 
-  // Create a new task
-  const task = await prisma.task.create({
-    data: {
-      title: formData.title,
-      description: formData.description,
-      subtasks: { create: formData.subtasks },
-      status: formData.status,
-      columnId: tasks.find((item) => item.status === formData.status)
-        ?.columnId as number,
-    },
-  });
+    // Optionally, update the column to include the new task
+    await prisma.column.update({
+      where: {
+        id: column.id,
+      },
+      data: {
+        tasks: { connect: { id: task.id } },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
-  // Optionally, update the column to include the new task
-  await prisma.column.update({
-    where: {
-      id: tasks.find((item) => item.status === formData.status)
-        ?.columnId as number,
-    },
-    data: {
-      tasks: { connect: { id: task.id } },
-    },
-  });
-  // revalidatePath("/board");
-  revalidateTag("prisma-column");
-  revalidatePath(`/board/${columnId}`);
-  redirect(`/board/${columnId}`);
   return { message: "New task created" };
 }
 
@@ -152,5 +159,74 @@ export async function updateStatus(
   } catch (error) {
     console.error("Error updating status:", error);
     throw error;
+  }
+}
+
+export async function updateTask(
+  taskId: number,
+  prevState: FormState,
+  data: FormData
+): Promise<FormState> {
+  const formData = formDataToJson(data);
+  const parsedData = schema.safeParse(formData);
+  if (!parsedData.success) {
+    throw new Error("Validation failed");
+  }
+  const { title, status, description, subtasks } = parsedData.data;
+  try {
+    // Check if task already exists
+    const taskToUpdate = await prisma.task.findUnique({
+      where: { id: taskId },
+    });
+    if (!taskToUpdate) {
+      throw new Error(`Task with ID ${taskId} does not exist`);
+    }
+
+    // Check if the columnId exists
+    if (taskToUpdate.columnId) {
+      const columnExists = await prisma.column.findUnique({
+        where: { id: taskToUpdate.columnId },
+      });
+
+      if (!columnExists) {
+        throw new Error(
+          `Column with ID ${taskToUpdate.columnId} does not exist`
+        );
+      }
+    }
+    const updateData: any = {
+      title,
+      status,
+      description: description?.trim(),
+      subtasks: subtasks
+        ? {
+            deleteMany: {},
+            create: subtasks.map((subtask: any) => ({
+              title: subtask.title,
+              isCompleted: subtask.isCompleted,
+            })),
+          }
+        : undefined,
+      column: taskToUpdate.columnId
+        ? { connect: { id: taskToUpdate.columnId } }
+        : undefined,
+    };
+
+    // Remove undefined fields to prevent Prisma errors
+    Object.keys(updateData).forEach((key) => {
+      if (updateData[key] === undefined) {
+        delete updateData[key];
+      }
+    });
+    const updatedTask = await prisma.task.update({
+      where: {
+        id: taskId,
+      },
+      data: updateData,
+    });
+    return { message: "Task updated successfully", ...updatedTask };
+  } catch (error) {
+    console.error("Error updating task:", error);
+    throw new Error("Failed to update task");
   }
 }

@@ -12,9 +12,17 @@ interface SelectProps {
   options: Option[];
   name: string;
   control: Control<any>;
+  editValue?: string;
+  taskId?: number;
 }
 
-function SelectField({ options, name, control }: SelectProps) {
+function SelectField({
+  options,
+  name,
+  control,
+  editValue,
+  taskId,
+}: SelectProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +31,7 @@ function SelectField({ options, name, control }: SelectProps) {
   const {
     field: { value, onChange },
   } = useController({ name, control });
-
+  console.log("selected option", selectedOption);
   const handleOptionClick = (option: Option) => {
     if (selectRef.current) {
       const selectedIndex = options.findIndex(
@@ -61,11 +69,11 @@ function SelectField({ options, name, control }: SelectProps) {
           isOpen ? "select-arrow-active" : ""
         } border border-[#ccc] border-opacity-50 rounded text-[#828FA3]`}
       >
-        {selectedOption ? selectedOption.title : "Todo"}
+        {selectedOption ? selectedOption.title : editValue ? editValue : "Todo"}
       </div>
       <select ref={selectRef} name={name} className="hidden">
         {options.map((option) => (
-          <option key={option.id} value={value.title}>
+          <option key={option.id} value={option.title}>
             {option.title}
           </option>
         ))}
