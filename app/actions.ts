@@ -183,17 +183,15 @@ export async function updateTask(
     }
 
     // Check if the columnId exists
-    if (taskToUpdate.columnId) {
-      const columnExists = await prisma.column.findUnique({
-        where: { id: taskToUpdate.columnId },
-      });
 
-      if (!columnExists) {
-        throw new Error(
-          `Column with ID ${taskToUpdate.columnId} does not exist`
-        );
-      }
+    const columnExists = await prisma.column.findFirst({
+      where: { name: status },
+    });
+
+    if (!columnExists) {
+      throw new Error(`Column with ID ${taskToUpdate.columnId} does not exist`);
     }
+
     const updateData: any = {
       title,
       status,
@@ -207,8 +205,8 @@ export async function updateTask(
             })),
           }
         : undefined,
-      column: taskToUpdate.columnId
-        ? { connect: { id: taskToUpdate.columnId } }
+      column: columnExists?.id
+        ? { connect: { id: columnExists.id } }
         : undefined,
     };
 
