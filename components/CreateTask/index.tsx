@@ -28,7 +28,7 @@ const CreateTask = () => {
               lightTheme ? "bg-[#ffffff]" : "bg-[#2b2c37]"
             } absolute mx-auto top-[20px] min-h-[659px] w-[90%] left-[16px] right-[16px] z-[10000] rounded-lg px-6 py-6 md:w-[480px] md:top-[80px]`}
           >
-            <p className="font-bold capitalize">add new task</p>
+            <h3 className="font-bold capitalize">add new task</h3>
             <Form columnId={Number(params.boardId)} />
           </section>
         </>

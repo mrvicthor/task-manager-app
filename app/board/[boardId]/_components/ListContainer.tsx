@@ -34,7 +34,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const [data, setData] = useState<TColumn[]>(columns);
   const dispatch = useAppDispatch();
 
-  console.log("columns", columns);
+  console.log("columns", board);
 
   useEffect(() => {
     if (board) {

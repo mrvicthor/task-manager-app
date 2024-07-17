@@ -17,8 +17,6 @@ const TaskDetails = () => {
   const taskDetails = useAppSelector((state) => state.task.task);
   const subTasks = useAppSelector((state) => state.task.subtask);
 
-  console.log("task details", taskDetails);
-
   const numberOfCompletedSubtasks = subTasks?.filter(
     (subtask) => subtask.isCompleted === true
   ).length;
