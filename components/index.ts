@@ -25,6 +25,7 @@ import TaskClient from "./TaskClient";
 import Task from "./Task";
 import TaskDetails from "./TaskDetails";
 import TaskOptions from "./TaskOptions";
+import UseBoardForm from "./UseBoardForm";
 
 export {
   Boards,
@@ -54,4 +55,5 @@ export {
   TaskOptions,
   ThemeToggle,
   Toggle,
+  UseBoardForm,
 };

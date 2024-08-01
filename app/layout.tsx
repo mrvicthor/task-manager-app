@@ -10,6 +10,7 @@ import {
   DeleteTask,
   EditTask,
   TaskDetails,
+  UseBoardForm,
 } from "@/components";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps) {
               <CreateTask />
               <DeleteTask />
               <EditTask />
+              <UseBoardForm />
               <TaskDetails />
             </section>
           </section>
