@@ -10,6 +10,7 @@ import Header from "./Header";
 import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
 import MobileMenu from "./MobileMenu";
+import NavButton from "./NavButton";
 import NavList from "./NavList";
 import NewColumnClient from "./NewColumn";
 import Select from "./Select";
@@ -39,6 +40,7 @@ export {
   MainScreen,
   MobileMenu,
   MobileClientComponent,
+  NavButton,
   NavList,
   NewColumnClient,
   Select,
