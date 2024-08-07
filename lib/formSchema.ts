@@ -17,6 +17,6 @@ export const schema = z.object({
 });
 
 export const boardSchema = z.object({
-  boardName: z.string().trim().min(3, { message: "boardName is required" }),
+  name: z.string().trim().min(3, { message: "boardName is required" }),
   columns: z.optional(z.array(Column)),
 });

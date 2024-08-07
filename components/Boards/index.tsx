@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Board } from "@prisma/client";
 import { NavList, NavButton } from "..";
 import prisma from "@/lib/prisma";

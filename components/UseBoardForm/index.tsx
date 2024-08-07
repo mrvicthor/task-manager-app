@@ -1,26 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useFormState } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleBoardForm } from "@/lib/features/board/boardSlice";
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import { useForm, useFieldArray, SubmitHandler, Form } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { boardSchema } from "@/lib/formSchema";
+import { createBoard } from "@/app/actions";
 import Image from "next/image";
 import { SvgComponent } from "..";
 
-type ColumnProps = {
-  name: string;
-};
+type FormFields = z.infer<typeof boardSchema>;
 
-type FormFields = {
-  name: string;
-  columns: ColumnProps[];
-};
 const UseBoardForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const formIsVisible = useAppSelector((state) => state.board.isOpen);
+  const [state, formAction] = useFormState(createBoard, { message: "" });
   const { register, handleSubmit, control, formState, getValues } =
     useForm<FormFields>({
+      resolver: zodResolver(boardSchema),
       defaultValues: {
         name: "",
         columns: [{ name: "Todo" }, { name: "Doing" }],
@@ -37,8 +39,9 @@ const UseBoardForm = () => {
     dispatch(toggleBoardForm());
   };
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormFields> = () => {
+    const formData = new FormData(formRef.current!);
+    formAction(formData);
   };
   return (
     <>
@@ -55,6 +58,7 @@ const UseBoardForm = () => {
           >
             <h3>Add New Board</h3>
             <form
+              ref={formRef}
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-5 mt-5"
             >
@@ -68,9 +72,7 @@ const UseBoardForm = () => {
                   board name
                 </label>
                 <input
-                  {...register("name", {
-                    required: `Can&apos;t be empty`,
-                  })}
+                  {...register("name")}
                   className={`w-full py-2 px-5 inline-block border border-[#ccc] border-opacity-50 hover:focus:outline placeholder:opacity-50 placeholder:text-sm rounded mt-1 bg-transparent focus:outline-none ${
                     formState.errors.name && "border-[#ea5555]"
                   }`}

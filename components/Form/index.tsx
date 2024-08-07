@@ -28,10 +28,10 @@ const Form = ({ columnId, taskData }: FormProps) => {
   const dispatch = useDispatch();
   const notify = () => toast.success(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
-  const createTaskWitId = createTask.bind(null, columnId);
-  const updateTaskWitId = updateTask.bind(null, taskData?.id as number);
+  const createTaskWithId = createTask.bind(null, columnId);
+  const updateTaskWithId = updateTask.bind(null, taskData?.id as number);
   const [state, formAction] = useFormState(
-    taskData ? updateTaskWitId : createTaskWitId,
+    taskData ? updateTaskWithId : createTaskWithId,
     {
       message: "",
     }

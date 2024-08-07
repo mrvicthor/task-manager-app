@@ -1,5 +1,5 @@
 "use server";
-import { schema } from "@/lib/formSchema";
+import { schema, boardSchema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
 import { formDataToJson } from "@/utils/formatDataToJson";
 import { Subtask } from "@/lib/models";
@@ -227,4 +227,28 @@ export async function updateTask(
     console.error("Error updating task:", error);
     throw new Error("Failed to update task");
   }
+}
+
+export async function createBoard(
+  prevState: FormState,
+  data: FormData
+): Promise<FormState> {
+  const formData = formDataToJson(data);
+  const parsed = boardSchema.safeParse(formData);
+
+  if (!parsed.success) {
+    return { message: "Invalid form data" };
+  }
+  try {
+    const board = await prisma.board.create({
+      data: {
+        name: formData.name,
+        columns: { create: formData.columns || [] },
+      },
+    });
+  } catch (error) {
+    console.log("Failed to create board:", error);
+  }
+
+  return { message: "New Board created" };
 }
