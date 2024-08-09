@@ -240,7 +240,7 @@ export async function createBoard(
     return { message: "Invalid form data" };
   }
   try {
-    const board = await prisma.board.create({
+    await prisma.board.create({
       data: {
         name: formData.name,
         columns: { create: formData.columns || [] },
