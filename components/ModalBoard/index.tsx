@@ -1,8 +1,17 @@
 "use client";
+import { toggleModal } from "@/lib/features/board/boardSlice";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
-const ModalBoard = () => {
+type ModalProps = {
+  boardId: number;
+};
+const ModalBoard = ({ boardId }: ModalProps) => {
+  const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
+
+  const toggleBoardModal = () => {
+    dispatch(toggleModal());
+  };
   return (
     <section
       className={`${

@@ -31,6 +31,7 @@ interface Task {
 const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
+  const isModalVisible = useAppSelector((state) => state.board.isModalOpen);
   const [data, setData] = useState<TColumn[]>(columns);
   const dispatch = useAppDispatch();
 
@@ -105,7 +106,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   return (
     <>
       <ToastContainer />
-      <ModalBoard />
+      {isModalVisible ? <ModalBoard boardId={board?.id as number} /> : null}
       <div
         className={`${
           lightTheme ? "bg-[#F4F7FD] text-[#000112]" : "bg-[#20212c] text-white"

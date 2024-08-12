@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 import Image from "next/image";
 import Link from "next/link";
+import { toggleModal } from "@/lib/features/board/boardSlice";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,9 @@ const Header = () => {
     dispatch(toggleTaskForm());
   };
 
+  const toggleBoardModal = () => {
+    dispatch(toggleModal());
+  };
   return (
     <header
       className={`${
@@ -106,7 +110,7 @@ const Header = () => {
           />
         </Button>
 
-        <div className="header__ellipsis">
+        <div className="header__ellipsis" onClick={toggleBoardModal}>
           <Image
             src={"/" + "./assets/icon-vertical-ellipsis.svg"}
             alt="vertical-ellipsis"
