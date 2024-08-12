@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import Column from "./Column";
-import { NewColumnClient } from "@/components";
+import { NewColumnClient, ModalBoard } from "@/components";
 import {
   setBoardSelected,
   setBoard,
@@ -105,7 +105,7 @@ const ListContainer = ({ board, columns, subtasks }: DetailsProps) => {
   return (
     <>
       <ToastContainer />
-
+      <ModalBoard />
       <div
         className={`${
           lightTheme ? "bg-[#F4F7FD] text-[#000112]" : "bg-[#20212c] text-white"

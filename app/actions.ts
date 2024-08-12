@@ -108,7 +108,7 @@ export async function updateSubtask(
       throw new Error(`Subtask with id ${subtaskId} for ${taskId} not found`);
     }
     // update task
-    const updatedTask = await prisma.subtask.update({
+    await prisma.subtask.update({
       where: {
         id: subtaskId,
       },
@@ -116,7 +116,6 @@ export async function updateSubtask(
         isCompleted: updatedSubtaskData.isCompleted,
       },
     });
-    return updatedTask;
   } catch (error) {
     console.error("Error updating subtask: ", error);
     throw error;

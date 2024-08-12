@@ -106,7 +106,7 @@ const Header = () => {
           />
         </Button>
 
-        <div>
+        <div className="header__ellipsis">
           <Image
             src={"/" + "./assets/icon-vertical-ellipsis.svg"}
             alt="vertical-ellipsis"

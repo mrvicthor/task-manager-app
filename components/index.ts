@@ -9,6 +9,7 @@ import HomeScreen from "./Home";
 import Header from "./Header";
 import LogoToggle from "./Logo";
 import { MainScreen } from "./MainScreen";
+import ModalBoard from "./ModalBoard";
 import MobileMenu from "./MobileMenu";
 import NavButton from "./NavButton";
 import NavList from "./NavList";
@@ -41,6 +42,7 @@ export {
   MainScreen,
   MobileMenu,
   MobileClientComponent,
+  ModalBoard,
   NavButton,
   NavList,
   NewColumnClient,

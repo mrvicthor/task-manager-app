@@ -35,6 +35,10 @@
     border-radius: 0px 100px 100px 0px;
   }
 
+  .header__ellipsis {
+    cursor: pointer;
+  }
+
   /*the container must be positioned relative:*/
   .custom-select {
     position: relative;
