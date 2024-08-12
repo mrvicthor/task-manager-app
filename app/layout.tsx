@@ -8,6 +8,7 @@ import {
   MobileMenu,
   CreateTask,
   DeleteTask,
+  DeleteModal,
   EditTask,
   TaskDetails,
   UseBoardForm,
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps) {
               {children}
               <Toggle />
               <CreateTask />
+              <DeleteModal />
               <DeleteTask />
               <EditTask />
               <UseBoardForm />

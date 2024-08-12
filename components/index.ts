@@ -2,6 +2,7 @@ import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
 import CreateTask from "./CreateTask";
+import DeleteModal from "./DeleteBoard";
 import DeleteTask from "./DeleteTask";
 import EditTask from "./EditTask";
 import Form from "./Form";
@@ -33,6 +34,7 @@ export {
   BoardTitle,
   Button,
   CreateTask,
+  DeleteModal,
   DeleteTask,
   EditTask,
   Form,

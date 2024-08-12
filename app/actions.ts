@@ -251,3 +251,7 @@ export async function createBoard(
 
   return { message: "New Board created" };
 }
+
+export async function deleteBoard(boardId: number) {
+  console.log("Deleting board");
+}

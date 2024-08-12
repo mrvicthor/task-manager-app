@@ -1,5 +1,8 @@
 "use client";
-import { toggleModal } from "@/lib/features/board/boardSlice";
+import {
+  toggleModal,
+  toggleDeleteModal,
+} from "@/lib/features/board/boardSlice";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
 type ModalProps = {
@@ -10,7 +13,9 @@ const ModalBoard = ({ boardId }: ModalProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
 
   const toggleBoardModal = () => {
+    console.log("toggleBoardModal");
     dispatch(toggleModal());
+    dispatch(toggleDeleteModal());
   };
   return (
     <section
@@ -24,6 +29,7 @@ const ModalBoard = ({ boardId }: ModalProps) => {
       <p
         aria-roledescription="button"
         className="capitalize text-sm text-red-500 w-[70%]"
+        onClick={toggleBoardModal}
       >
         delete board
       </p>

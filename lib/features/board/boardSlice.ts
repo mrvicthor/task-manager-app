@@ -19,6 +19,7 @@ export interface BoardState {
   columnId: number | null;
   isOpen: boolean;
   isModalOpen: boolean;
+  showDeleteModal: boolean;
 }
 
 const initialState: BoardState = {
@@ -31,6 +32,7 @@ const initialState: BoardState = {
   columnId: null,
   isOpen: false,
   isModalOpen: false,
+  showDeleteModal: false,
 };
 
 export const BoardSlice = createSlice({
@@ -51,6 +53,9 @@ export const BoardSlice = createSlice({
     },
     toggleModal: (state) => {
       state.isModalOpen = !state.isModalOpen;
+    },
+    toggleDeleteModal: (state) => {
+      state.showDeleteModal = !state.showDeleteModal;
     },
     setBoard: (state, action: PayloadAction<Board>) => {
       state.boards = action.payload;
@@ -77,5 +82,6 @@ export const {
   setTasks,
   setBoard,
   toggleBoardForm,
+  toggleDeleteModal,
 } = BoardSlice.actions;
 export default BoardSlice.reducer;
