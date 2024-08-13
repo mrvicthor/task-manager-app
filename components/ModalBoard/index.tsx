@@ -23,12 +23,15 @@ const ModalBoard = ({ boardId }: ModalProps) => {
         lightTheme ? "bg-[#ffffff]" : "bg-[#20212c]"
       } absolute flex flex-col -top-[4px] gap-5 rounded-lg right-[1.5rem] z-[1000000] w-[12rem] h-[5.875rem] p-4`}
     >
-      <p aria-roledescription="button" className="capitalize text-sm w-[50%]">
+      <p
+        aria-roledescription="button"
+        className="text-[#828FA3] capitalize text-xs cursor-pointer"
+      >
         edit board
       </p>
       <p
         aria-roledescription="button"
-        className="capitalize text-sm text-red-500 w-[70%]"
+        className="capitalize text-xs text-[#ea5555] cursor-pointer"
         onClick={toggleBoardModal}
       >
         delete board

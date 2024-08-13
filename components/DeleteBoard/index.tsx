@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toast } from "react-toastify";
 import { toggleDeleteModal } from "@/lib/features/board/boardSlice";
@@ -7,7 +8,7 @@ import { deleteBoard } from "@/app/actions";
 
 const DeleteModal = () => {
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
   const showDelete = useAppSelector((state) => state.board.showDeleteModal);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const boardToDelete = useAppSelector((state) => state.board.boards);
@@ -30,7 +31,7 @@ const DeleteModal = () => {
         } absolute mx-auto top-[50%] -translate-y-[50%] min-h-[284px] w-[90%] left-[50%] z-[10000] -translate-x-[50%] rounded-lg px-6 py-6 delete-modal space-y-4 md:w-[480px] md:min-h-[229px]`}
       >
         <p className="text-[#ea5555] text-lg font-semibold">
-          Delete this task?
+          Delete this board?
         </p>
         <p className="text-[#828FA3]">
           Are you sure you want to delete &quot;{boardToDelete?.name}&quot;
@@ -44,7 +45,7 @@ const DeleteModal = () => {
               deleteBoard(boardToDelete?.id as number);
               notify();
               dispatch(toggleDeleteModal());
-              window.location.reload();
+              router.push("/");
             }}
           >
             Delete

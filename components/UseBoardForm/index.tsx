@@ -3,9 +3,10 @@ import { useState, useRef } from "react";
 import { useFormState } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleBoardForm } from "@/lib/features/board/boardSlice";
-import { useForm, useFieldArray, SubmitHandler, Form } from "react-hook-form";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 import { boardSchema } from "@/lib/formSchema";
 import { createBoard } from "@/app/actions";
 import Image from "next/image";
@@ -34,6 +35,8 @@ const UseBoardForm = () => {
     name: "columns",
   });
 
+  const notify = () => toast.success(`Board was successfully created`);
+
   const hideFormToggle = () => {
     document.body.style.overflow = "auto";
     dispatch(toggleBoardForm());
@@ -42,6 +45,9 @@ const UseBoardForm = () => {
   const onSubmit: SubmitHandler<FormFields> = () => {
     const formData = new FormData(formRef.current!);
     formAction(formData);
+    dispatch(toggleBoardForm());
+    notify();
+    window.location.reload();
   };
   return (
     <>

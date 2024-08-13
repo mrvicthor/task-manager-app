@@ -73,11 +73,13 @@ export async function deleteTask(taskId: number) {
     });
     // check if the task exists, then delete it
     if (task) {
+      // delete the subtask
       await prisma.subtask.deleteMany({
         where: {
           taskId,
         },
       });
+      // delete the task
       await prisma.task.delete({
         where: {
           id: taskId,
@@ -253,5 +255,32 @@ export async function createBoard(
 }
 
 export async function deleteBoard(boardId: number) {
-  console.log("Deleting board");
+  try {
+    // find the board with the given id
+    const board = await prisma.board.findUnique({
+      where: { id: boardId },
+      include: {
+        columns: true,
+      },
+    });
+
+    if (!board) {
+      throw new Error(`Board with id ${boardId} for ${boardId} not found`);
+    }
+    // delete all the columns
+    await prisma.column.deleteMany({
+      where: {
+        boardId,
+      },
+    });
+    // delete the board
+    await prisma.board.delete({
+      where: {
+        id: boardId,
+      },
+    });
+    revalidatePath(`/board`);
+  } catch (error) {
+    console.log("Error deleting board", error);
+  }
 }
