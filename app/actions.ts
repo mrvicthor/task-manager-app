@@ -284,3 +284,16 @@ export async function deleteBoard(boardId: number) {
     console.log("Error deleting board", error);
   }
 }
+
+export async function updateBoard(
+  boardId: number,
+  prevState: FormState,
+  data: FormData
+): Promise<FormState> {
+  const formData = formDataToJson(data);
+  const parsedData = schema.safeParse(formData);
+  if (!parsedData.success) {
+    throw new Error("Validation failed");
+  }
+  return { message: `Board with id ${boardId} updated successfully` };
+}
