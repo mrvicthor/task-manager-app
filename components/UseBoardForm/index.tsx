@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { useFormState } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { toggleBoardForm, toggleEdit } from "@/lib/features/board/boardSlice";
+import { toggleBoardForm } from "@/lib/features/board/boardSlice";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,7 +22,6 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-  const formIsVisible = useAppSelector((state) => state.board.isOpen);
 
   const updateBoardWithId = updateBoard.bind(null, board?.id as number);
   const [state, formAction] = useFormState(
@@ -44,11 +43,6 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
   });
 
   const notify = () => toast.success(`Board was successfully created`);
-
-  const hideFormToggle = () => {
-    document.body.style.overflow = "auto";
-    dispatch(toggleBoardForm());
-  };
 
   const onSubmit: SubmitHandler<FormFields> = () => {
     const formData = new FormData(formRef.current!);
@@ -142,7 +136,7 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
         type="submit"
         className="bg-[#635fc7] w-full h-[40px] rounded-full capitalize text-white"
       >
-        create new board
+        {board ? "save changes" : "create new board"}
       </button>
     </form>
   );

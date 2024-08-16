@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import UseBoardForm from "../UseBoardForm";
 import { toggleBoardForm, toggleEdit } from "@/lib/features/board/boardSlice";
@@ -6,7 +8,7 @@ import { Board } from "@/lib/models";
 const EditBoard = () => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-  const formIsVisible = useAppSelector((state) => state.board.isOpen);
+  const formIsVisible = useAppSelector((state) => state.board.isEditingBoard);
   const board = useAppSelector((state) => state.board.boards);
   const hideFormToggle = () => {
     document.body.style.overflow = "auto";

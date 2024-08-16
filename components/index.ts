@@ -2,8 +2,10 @@ import Boards from "./Boards";
 import BoardTitle from "./BoardTitle";
 import Button from "./Button";
 import CreateTask from "./CreateTask";
+import CreateBoard from "./CreateBoard";
 import DeleteModal from "./DeleteBoard";
 import DeleteTask from "./DeleteTask";
+import EditBoard from "./EditBoard";
 import EditTask from "./EditTask";
 import Form from "./Form";
 import HomeScreen from "./Home";
@@ -27,15 +29,16 @@ import TaskClient from "./TaskClient";
 import Task from "./Task";
 import TaskDetails from "./TaskDetails";
 import TaskOptions from "./TaskOptions";
-import UseBoardForm from "./UseBoardForm";
 
 export {
   Boards,
   BoardTitle,
   Button,
   CreateTask,
+  CreateBoard,
   DeleteModal,
   DeleteTask,
+  EditBoard,
   EditTask,
   Form,
   HomeScreen,
@@ -59,5 +62,4 @@ export {
   TaskOptions,
   ThemeToggle,
   Toggle,
-  UseBoardForm,
 };
