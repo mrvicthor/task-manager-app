@@ -1,5 +1,6 @@
 import { Board } from "@prisma/client";
-import { NavList, NavButton } from "..";
+import NavList from "../NavList";
+import NavButton from "../NavButton";
 import prisma from "@/lib/prisma";
 
 const Boards = async () => {

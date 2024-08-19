@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import Column from "./Column";
-import { NewColumnClient, ModalBoard } from "@/components";
+import NewColumnClient from "../../../../components/NewColumn";
+import ModalBoard from "../../../../components/ModalBoard";
 import {
   setBoardSelected,
   setBoard,

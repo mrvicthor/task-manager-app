@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Select from "../Select";
-import { TaskOptions } from "@/components";
+import TaskOptions from "../TaskOptions";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Subtask } from "@/lib/models";

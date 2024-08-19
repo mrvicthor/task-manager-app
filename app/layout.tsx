@@ -1,19 +1,30 @@
 import StoreProvider from "./StoreProvider";
 import type { Metadata } from "next";
 // import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import {
-  Header,
-  Sidebar,
-  Toggle,
-  MobileMenu,
-  CreateBoard,
-  CreateTask,
-  DeleteTask,
-  DeleteModal,
-  EditBoard,
-  EditTask,
-  TaskDetails,
-} from "@/components";
+// import {
+//   Header,
+//   Sidebar,
+//   Toggle,
+//   MobileMenu,
+//   CreateBoard,
+//   CreateTask,
+//   DeleteTask,
+//   DeleteModal,
+//   EditBoard,
+//   EditTask,
+//   TaskDetails,
+// } from "@/components";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import { Toggle } from "../components/Toggle";
+import MobileMenu from "../components/MobileMenu";
+import CreateBoard from "../components/CreateBoard";
+import CreateTask from "../components/CreateTask";
+import DeleteTask from "../components/DeleteTask";
+import DeleteModal from "../components/DeleteBoard";
+import EditBoard from "../components/EditBoard";
+import EditTask from "../components/EditTask";
+import TaskDetails from "../components/TaskDetails";
 import "./globals.css";
 
 // const inter = Inter({ subsets: ["latin"] });

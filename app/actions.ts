@@ -165,6 +165,7 @@ export async function updateStatus(
 
 export async function updateTask(
   taskId: number,
+  boardId: number,
   prevState: FormState,
   data: FormData
 ): Promise<FormState> {
@@ -173,7 +174,9 @@ export async function updateTask(
   if (!parsedData.success) {
     throw new Error("Validation failed");
   }
+
   const { title, status, description, subtasks } = parsedData.data;
+
   try {
     // Check if task already exists
     const taskToUpdate = await prisma.task.findUnique({
@@ -184,10 +187,11 @@ export async function updateTask(
     }
 
     // Check if the columnId exists
-
     const columnExists = await prisma.column.findFirst({
-      where: { name: status },
+      where: { name: status, boardId: boardId },
     });
+
+    console.log("column exist", columnExists?.name);
 
     if (!columnExists) {
       throw new Error(`Column with ID ${taskToUpdate.columnId} does not exist`);
@@ -291,9 +295,38 @@ export async function updateBoard(
   data: FormData
 ): Promise<FormState> {
   const formData = formDataToJson(data);
-  const parsedData = schema.safeParse(formData);
+  const parsedData = boardSchema.safeParse(formData);
   if (!parsedData.success) {
     throw new Error("Validation failed");
   }
-  return { message: `Board with id ${boardId} updated successfully` };
+  const { name, columns } = parsedData.data;
+  console.log("column", columns);
+  try {
+    // check if board exist
+    const board = await prisma.board.findUnique({
+      where: { id: boardId },
+      include: { columns: true },
+    });
+    if (!board) {
+      throw new Error(`Board with ${boardId} does not exist`);
+    }
+
+    // await prisma.board.update({
+    //   where: { id: boardId },
+    //   data: {
+    //     name,
+    //     columns: columns
+    //       ? {
+    //           deleteMany: {},
+    //           create: columns.map((column: any) => ({
+    //             name: column.name,
+    //           })),
+    //         }
+    //       : undefined,
+    //   },
+    // });
+  } catch (error) {
+    console.log("Error updating board", error);
+  }
+  return { message: `Board with id ${boardId} was updated successfully` };
 }

@@ -2,7 +2,7 @@
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toast } from "react-toastify";
 import { setShowDeleteTask } from "@/lib/features/task/taskSlice";
-import { Button } from "..";
+import Button from "../Button";
 import { deleteTask } from "@/app/actions";
 
 const DeleteTask = () => {

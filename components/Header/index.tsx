@@ -1,6 +1,7 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { Button, BoardTitle } from "..";
+import Button from "../Button";
+import BoardTitle from "../BoardTitle";
 import { usePathname } from "next/navigation";
 import { toggleTaskForm } from "@/lib/features/task/taskSlice";
 import Image from "next/image";

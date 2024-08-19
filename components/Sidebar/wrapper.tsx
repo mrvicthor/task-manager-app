@@ -1,13 +1,15 @@
 "use client";
 import { useAppSelector } from "@/lib/hooks";
-import { LogoToggle, ThemeToggle } from "..";
-import { HideSidebar } from "./hideSidebar";
+// import { LogoToggle, ThemeToggle } from "..";
+import LogoToggle from "../Logo";
+import ThemeToggle from "../ThemeToggle";
+import HideSidebar from "./hideSidebar";
 
 interface WrapperProps {
   children: React.ReactNode;
 }
 
-export const Wrapper = ({ children }: WrapperProps) => {
+const Wrapper = ({ children }: WrapperProps) => {
   const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
   return (
@@ -39,3 +41,5 @@ export const Wrapper = ({ children }: WrapperProps) => {
     </aside>
   );
 };
+
+export default Wrapper;

@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { SvgComponent } from "..";
+import SvgComponent from "../SVGComponent";
 import { Board } from "@prisma/client";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";

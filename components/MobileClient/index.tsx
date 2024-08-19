@@ -1,13 +1,13 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { ThemeToggle } from "..";
+import ThemeToggle from "../ThemeToggle";
 import { toggleMobileBoard } from "@/lib/features/board/boardSlice";
 
 interface MobileMenuProps {
   children: React.ReactNode;
 }
 
-export const MobileClientComponent = ({ children }: MobileMenuProps) => {
+const MobileClientComponent = ({ children }: MobileMenuProps) => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showMobileMenu = useAppSelector((state) => state.board.showMobileBoard);
@@ -42,3 +42,5 @@ export const MobileClientComponent = ({ children }: MobileMenuProps) => {
     </section>
   );
 };
+
+export default MobileClientComponent;

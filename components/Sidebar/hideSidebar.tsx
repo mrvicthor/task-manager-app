@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleSidebar } from "@/lib/features/sidebar/sidebarSlice";
-import { SvgComponent } from "..";
+import SvgComponent from "../SVGComponent";
 
-export const HideSidebar = () => {
+const HideSidebar = () => {
   const dispatch = useAppDispatch();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const handleSidebar = () => {
@@ -29,3 +28,5 @@ export const HideSidebar = () => {
     </div>
   );
 };
+
+export default HideSidebar;

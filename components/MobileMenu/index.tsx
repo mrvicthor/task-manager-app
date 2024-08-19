@@ -1,5 +1,5 @@
-import { MobileClientComponent } from "..";
-import { Boards } from "..";
+import MobileClientComponent from "../MobileClient";
+import Boards from "../Boards";
 
 const MobileMenu = () => {
   return (

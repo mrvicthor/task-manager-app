@@ -3,7 +3,16 @@
 import { toast } from "react-toastify";
 
 import { useRef, useState } from "react";
-import { SelectField, SvgComponent } from "..";
+// import { SelectField, SvgComponent } from "..";
+import SelectField from "../SelectField";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "../ui/select";
+import SvgComponent from "../SVGComponent";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
 import { useFormState } from "react-dom";
@@ -12,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/lib/formSchema";
 import { z } from "zod";
 import { TaskProps } from "@/lib/models";
-import { createTask, updateTask } from "@/app/actions";
+import { createTask, updateTask, updateStatus } from "@/app/actions";
 import { useDispatch } from "react-redux";
 import {
   toggleTaskForm,
@@ -29,7 +38,11 @@ const Form = ({ columnId, taskData }: FormProps) => {
   const notify = () => toast.success(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
   const createTaskWithId = createTask.bind(null, columnId);
-  const updateTaskWithId = updateTask.bind(null, taskData?.id as number);
+  const updateTaskWithId = updateTask.bind(
+    null,
+    taskData?.id as number,
+    columnId
+  );
   const [state, formAction] = useFormState(
     taskData ? updateTaskWithId : createTaskWithId,
     {
@@ -37,15 +50,25 @@ const Form = ({ columnId, taskData }: FormProps) => {
     }
   );
 
+  console.log("task data", taskData);
+
   const formRef = useRef<HTMLFormElement>(null);
+
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      title: taskData?.title ?? "",
-      description: taskData?.description ?? "",
-      status: taskData?.status ?? "Todo",
-      subtasks: taskData?.subtasks ?? [{ title: "", isCompleted: false }],
-    },
+    defaultValues: taskData
+      ? {
+          title: taskData.title,
+          description: taskData.description as string,
+          status: taskData.status,
+          subtasks: taskData.subtasks,
+        }
+      : {
+          title: "",
+          description: "",
+          status: "Todo",
+          subtasks: [{ title: "", isCompleted: false }],
+        },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -184,6 +207,20 @@ const Form = ({ columnId, taskData }: FormProps) => {
         >
           status
         </label>
+        {/* <Select
+          onValueChange={(value: typeof status) =>
+            form.setValue("status", value)
+          }
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Todo" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Todo">Todo</SelectItem>
+            <SelectItem value="Doing">Doing</SelectItem>
+            <SelectItem value="Done">Done</SelectItem>
+          </SelectContent>
+        </Select> */}
         <SelectField
           options={options}
           name="status"

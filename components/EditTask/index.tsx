@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { Form } from "..";
+import Form from "../Form";
 import { toggleEditTaskForm } from "@/lib/features/task/taskSlice";
 import { TaskProps } from "@/lib/models";
 

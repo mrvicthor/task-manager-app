@@ -1,7 +1,7 @@
 "use client";
 import { useAppSelector } from "@/lib/hooks";
 import { useState, useRef, useEffect } from "react";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, Controller } from "react-hook-form";
 
 interface Option {
   id: number;
@@ -13,16 +13,9 @@ interface SelectProps {
   name: string;
   control: Control<any>;
   editValue?: string;
-  taskId?: number;
 }
 
-function SelectField({
-  options,
-  name,
-  control,
-  editValue,
-  taskId,
-}: SelectProps) {
+function SelectField({ options, name, control, editValue }: SelectProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +24,7 @@ function SelectField({
   const {
     field: { value, onChange },
   } = useController({ name, control });
-  console.log("selected option", selectedOption);
+
   const handleOptionClick = (option: Option) => {
     if (selectRef.current) {
       const selectedIndex = options.findIndex(
@@ -69,9 +62,14 @@ function SelectField({
           isOpen ? "select-arrow-active" : ""
         } border border-[#ccc] border-opacity-50 rounded text-[#828FA3]`}
       >
-        {selectedOption ? selectedOption.title : editValue ? editValue : "Todo"}
+        {selectedOption ? selectedOption.title : editValue ?? "Todo"}
       </div>
-      <select ref={selectRef} name={name} className="hidden">
+      <select
+        ref={selectRef}
+        name={name}
+        className="hidden"
+        defaultValue={editValue ?? "Todo"}
+      >
         {options.map((option) => (
           <option key={option.id} value={option.title}>
             {option.title}

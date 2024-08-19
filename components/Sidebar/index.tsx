@@ -1,5 +1,5 @@
-import { Wrapper } from "./wrapper";
-import { Boards } from "..";
+import Wrapper from "./wrapper";
+import Boards from "../Boards";
 
 const Sidebar = () => {
   return (

@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toast } from "react-toastify";
 import { toggleDeleteModal } from "@/lib/features/board/boardSlice";
-import { Button } from "..";
+import Button from "../Button";
 import { deleteBoard } from "@/app/actions";
 
 const DeleteModal = () => {

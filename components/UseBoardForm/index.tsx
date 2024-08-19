@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { boardSchema } from "@/lib/formSchema";
 import { createBoard, updateBoard } from "@/app/actions";
 import Image from "next/image";
-import { SvgComponent } from "..";
+import SvgComponent from "../SVGComponent";
 import { Board } from "@/lib/models";
 type UseBoardFormProps = {
   board?: Board;
@@ -22,7 +22,7 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
-
+  console.log("board", board);
   const updateBoardWithId = updateBoard.bind(null, board?.id as number);
   const [state, formAction] = useFormState(
     board ? updateBoardWithId : createBoard,
@@ -31,10 +31,15 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
   const { register, handleSubmit, control, formState, getValues } =
     useForm<FormFields>({
       resolver: zodResolver(boardSchema),
-      defaultValues: {
-        name: board?.name ?? "",
-        columns: board?.columns ?? [{ name: "Todo" }, { name: "Doing" }],
-      },
+      defaultValues: board
+        ? {
+            name: board.name,
+            columns: board.columns,
+          }
+        : {
+            name: "",
+            columns: [{ name: "Todo" }, { name: "Doing" }],
+          },
     });
 
   const { fields, append, remove } = useFieldArray({
@@ -42,7 +47,10 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
     name: "columns",
   });
 
-  const notify = () => toast.success(`Board was successfully created`);
+  const notify = () =>
+    board
+      ? toast.success("Board was successfully updated")
+      : toast.success(`Board was successfully created`);
 
   const onSubmit: SubmitHandler<FormFields> = () => {
     const formData = new FormData(formRef.current!);

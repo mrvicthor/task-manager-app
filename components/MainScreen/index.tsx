@@ -4,7 +4,7 @@ import { useAppSelector } from "@/lib/hooks";
 interface MainScreenProps {
   children: React.ReactNode;
 }
-export const MainScreen = ({ children }: MainScreenProps) => {
+const MainScreen = ({ children }: MainScreenProps) => {
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const showSidebar = useAppSelector((state) => state.sidebar.hideSidebar);
 
@@ -18,3 +18,5 @@ export const MainScreen = ({ children }: MainScreenProps) => {
     </main>
   );
 };
+
+export default MainScreen;
