@@ -1,16 +1,15 @@
 "use client";
-import { useState, useRef } from "react";
-import { useFormState } from "react-dom";
+import { useState } from "react";
+import Image from "next/image";
+import SvgComponent from "../SVGComponent";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleBoardForm, toggleEdit } from "@/lib/features/board/boardSlice";
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { boardSchema } from "@/lib/formSchema";
 import { createBoard, updateBoard } from "@/app/actions";
-import Image from "next/image";
-import SvgComponent from "../SVGComponent";
 import { Board } from "@/lib/models";
 type UseBoardFormProps = {
   board?: Board;
@@ -18,17 +17,11 @@ type UseBoardFormProps = {
 export type FormFields = z.infer<typeof boardSchema>;
 
 const UseBoardForm = ({ board }: UseBoardFormProps) => {
-  // const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
   const isEditing = useAppSelector((state) => state.board.isEditingBoard);
-  console.log("board", board);
-  // const updateBoardWithId = updateBoard.bind(null, board?.id as number);
-  // const [state, formAction] = useFormState(
-  //   board ? updateBoardWithId : createBoard,
-  //   { message: "" }
-  // );
+
   const { register, handleSubmit, control, formState, getValues } =
     useForm<FormFields>({
       resolver: zodResolver(boardSchema),
