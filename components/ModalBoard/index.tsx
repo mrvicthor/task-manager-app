@@ -22,7 +22,6 @@ const ModalBoard = ({ boardId }: ModalProps) => {
   const toggleEditForm = () => {
     dispatch(toggleModal());
     dispatch(toggleEdit());
-    dispatch(toggleBoardForm());
   };
 
   return (

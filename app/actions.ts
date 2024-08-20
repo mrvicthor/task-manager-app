@@ -1,10 +1,12 @@
 "use server";
-import { schema, boardSchema } from "@/lib/formSchema";
+import { schema } from "@/lib/formSchema";
 import prisma from "@/lib/prisma";
 import { formDataToJson } from "@/utils/formatDataToJson";
 import { Subtask } from "@/lib/models";
 import { revalidatePath } from "next/cache";
 import { Task } from "@/lib/models";
+import { FormFields } from "@/components/UseBoardForm";
+import { Prisma } from "@prisma/client";
 export type FormState = {
   message: string;
 };
@@ -234,28 +236,69 @@ export async function updateTask(
   }
 }
 
-export async function createBoard(
-  prevState: FormState,
-  data: FormData
-): Promise<FormState> {
-  const formData = formDataToJson(data);
-  const parsed = boardSchema.safeParse(formData);
-
-  if (!parsed.success) {
-    return { message: "Invalid form data" };
-  }
-  try {
-    await prisma.board.create({
-      data: {
-        name: formData.name,
-        columns: { create: formData.columns || [] },
+export async function createBoard(data: FormFields) {
+  return prisma.board.create({
+    data: {
+      name: data.name,
+      columns: {
+        create: data.columns?.map((column) => ({ name: column.name })),
       },
-    });
-  } catch (error) {
-    console.log("Failed to create board:", error);
+    },
+  });
+}
+
+export async function updateBoard(boardId: number, data: FormFields) {
+  const existingColumns = await prisma.column.findMany({
+    where: { boardId },
+  });
+
+  // Find columns to delete
+  const columnIdsToDelete = existingColumns
+    .filter(
+      (existingColumn) =>
+        !data.columns?.some((column) => column.id === existingColumn.id)
+    )
+    .map((column) => column.id);
+
+  // Create an array of Prisma operations to update existing columns or create new ones
+  const updateOrCreateOperations: Prisma.PrismaPromise<any>[] = data.columns
+    ?.map((column) => {
+      if (column.id) {
+        // Update existing column
+        return prisma.column.update({
+          where: { id: column.id },
+          data: { name: column.name },
+        });
+      } else {
+        // Create new column
+        return prisma.column.create({
+          data: { name: column.name, boardId },
+        });
+      }
+    })
+    .filter(
+      (operation) => operation !== undefined
+    ) as Prisma.PrismaPromise<any>[];
+
+  // If there are columns to delete, add the deleteMany operation to the transaction
+  if (columnIdsToDelete.length > 0) {
+    updateOrCreateOperations.push(
+      prisma.column.deleteMany({
+        where: { id: { in: columnIdsToDelete } },
+      })
+    );
   }
 
-  return { message: "New Board created" };
+  // Perform all operations in a transaction
+  await prisma.$transaction(updateOrCreateOperations);
+
+  // Finally, update the board name if necessary
+  return prisma.board.update({
+    where: { id: boardId },
+    data: {
+      name: data.name,
+    },
+  });
 }
 
 export async function deleteBoard(boardId: number) {
@@ -283,50 +326,8 @@ export async function deleteBoard(boardId: number) {
         id: boardId,
       },
     });
-    revalidatePath(`/board`);
+    revalidatePath(`/`);
   } catch (error) {
     console.log("Error deleting board", error);
   }
-}
-
-export async function updateBoard(
-  boardId: number,
-  prevState: FormState,
-  data: FormData
-): Promise<FormState> {
-  const formData = formDataToJson(data);
-  const parsedData = boardSchema.safeParse(formData);
-  if (!parsedData.success) {
-    throw new Error("Validation failed");
-  }
-  const { name, columns } = parsedData.data;
-  console.log("column", columns);
-  try {
-    // check if board exist
-    const board = await prisma.board.findUnique({
-      where: { id: boardId },
-      include: { columns: true },
-    });
-    if (!board) {
-      throw new Error(`Board with ${boardId} does not exist`);
-    }
-
-    // await prisma.board.update({
-    //   where: { id: boardId },
-    //   data: {
-    //     name,
-    //     columns: columns
-    //       ? {
-    //           deleteMany: {},
-    //           create: columns.map((column: any) => ({
-    //             name: column.name,
-    //           })),
-    //         }
-    //       : undefined,
-    //   },
-    // });
-  } catch (error) {
-    console.log("Error updating board", error);
-  }
-  return { message: `Board with id ${boardId} was updated successfully` };
 }

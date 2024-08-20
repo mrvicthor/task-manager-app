@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { useFormState } from "react-dom";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { toggleBoardForm } from "@/lib/features/board/boardSlice";
+import { toggleBoardForm, toggleEdit } from "@/lib/features/board/boardSlice";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,31 +15,27 @@ import { Board } from "@/lib/models";
 type UseBoardFormProps = {
   board?: Board;
 };
-type FormFields = z.infer<typeof boardSchema>;
+export type FormFields = z.infer<typeof boardSchema>;
 
 const UseBoardForm = ({ board }: UseBoardFormProps) => {
-  const formRef = useRef<HTMLFormElement>(null);
+  // const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
+  const isEditing = useAppSelector((state) => state.board.isEditingBoard);
   console.log("board", board);
-  const updateBoardWithId = updateBoard.bind(null, board?.id as number);
-  const [state, formAction] = useFormState(
-    board ? updateBoardWithId : createBoard,
-    { message: "" }
-  );
+  // const updateBoardWithId = updateBoard.bind(null, board?.id as number);
+  // const [state, formAction] = useFormState(
+  //   board ? updateBoardWithId : createBoard,
+  //   { message: "" }
+  // );
   const { register, handleSubmit, control, formState, getValues } =
     useForm<FormFields>({
       resolver: zodResolver(boardSchema),
-      defaultValues: board
-        ? {
-            name: board.name,
-            columns: board.columns,
-          }
-        : {
-            name: "",
-            columns: [{ name: "Todo" }, { name: "Doing" }],
-          },
+      defaultValues: board || {
+        name: "",
+        columns: [{ name: "Todo" }, { name: "Doing" }],
+      },
     });
 
   const { fields, append, remove } = useFieldArray({
@@ -52,16 +48,23 @@ const UseBoardForm = ({ board }: UseBoardFormProps) => {
       ? toast.success("Board was successfully updated")
       : toast.success(`Board was successfully created`);
 
-  const onSubmit: SubmitHandler<FormFields> = () => {
-    const formData = new FormData(formRef.current!);
-    formAction(formData);
-    dispatch(toggleBoardForm());
-    notify();
-    window.location.reload();
+  const onSubmit = async (data: FormFields) => {
+    try {
+      if (isEditing && board?.id) {
+        dispatch(toggleEdit());
+        await updateBoard(board?.id as number, data);
+      } else {
+        dispatch(toggleBoardForm());
+        await createBoard(data);
+      }
+      notify();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <form
-      ref={formRef}
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-5 mt-5"
     >

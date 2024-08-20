@@ -12,7 +12,6 @@ const EditBoard = () => {
   const board = useAppSelector((state) => state.board.boards) as Board;
   const hideFormToggle = () => {
     document.body.style.overflow = "auto";
-    dispatch(toggleBoardForm());
     dispatch(toggleEdit());
   };
   return (

@@ -207,20 +207,6 @@ const Form = ({ columnId, taskData }: FormProps) => {
         >
           status
         </label>
-        {/* <Select
-          onValueChange={(value: typeof status) =>
-            form.setValue("status", value)
-          }
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Todo" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Todo">Todo</SelectItem>
-            <SelectItem value="Doing">Doing</SelectItem>
-            <SelectItem value="Done">Done</SelectItem>
-          </SelectContent>
-        </Select> */}
         <SelectField
           options={options}
           name="status"

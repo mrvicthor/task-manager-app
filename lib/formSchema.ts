@@ -6,6 +6,7 @@ const Subtask = z.object({
 });
 
 const Column = z.object({
+  id: z.optional(z.number()),
   name: z.string(),
 });
 
