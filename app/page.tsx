@@ -1,4 +1,3 @@
-// import { HomeScreen, MainScreen } from "@/components";
 import HomeScreen from "../components/Home";
 import MainScreen from "../components/MainScreen";
 import { Suspense } from "react";

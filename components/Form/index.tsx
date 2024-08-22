@@ -1,17 +1,8 @@
 "use client";
 
 import { toast } from "react-toastify";
-
 import { useRef, useState } from "react";
-// import { SelectField, SvgComponent } from "..";
 import SelectField from "../SelectField";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "../ui/select";
 import SvgComponent from "../SVGComponent";
 import Image from "next/image";
 import { useAppSelector } from "@/lib/hooks";
@@ -21,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/lib/formSchema";
 import { z } from "zod";
 import { TaskProps } from "@/lib/models";
-import { createTask, updateTask, updateStatus } from "@/app/actions";
+import { createTask, updateTask } from "@/app/actions";
 import { useDispatch } from "react-redux";
 import {
   toggleTaskForm,

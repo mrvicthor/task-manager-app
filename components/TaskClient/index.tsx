@@ -43,7 +43,7 @@ const TaskClient = ({ children, index, item, subtask }: TaskClientProps) => {
           role="button"
           className={`${
             lightTheme ? "bg-white" : "bg-[#2B2C37]"
-          } min-h-[5.5rem] task-item flex px-4 py-4 active:animate-pulse active:cursor-grabbing cursor-grab`}
+          } min-h-[5.5rem] task-item flex px-4 py-4 cursor-grabbing`}
         >
           <article className={`flex flex-col`}>{children}</article>
         </li>
