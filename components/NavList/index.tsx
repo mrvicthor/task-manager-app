@@ -3,18 +3,20 @@ import { usePathname } from "next/navigation";
 import SvgComponent from "../SVGComponent";
 import { Board } from "@prisma/client";
 import Link from "next/link";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { toggleMobileBoard } from "@/lib/features/board/boardSlice";
 
 interface NavProps {
   board: Board;
 }
 
 const NavList = ({ board }: NavProps) => {
+  const dispatch = useAppDispatch();
   const pathname = usePathname();
   const lightTheme = useAppSelector((state) => state.theme.lightTheme);
 
   return (
-    <li key={board.id}>
+    <li key={board.id} onClick={() => dispatch(toggleMobileBoard())}>
       <Link
         href={`/board/${board.id}`}
         className={`${

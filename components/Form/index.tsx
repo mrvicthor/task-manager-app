@@ -26,6 +26,7 @@ type FormProps = {
 
 const Form = ({ columnId, taskData }: FormProps) => {
   const dispatch = useDispatch();
+  const lighTheme = useAppSelector((state) => state.theme.lightTheme);
   const notify = () => toast.success(`Task added to column ${columnId}`);
   const [isHovered, setIsHovered] = useState(false);
   const createTaskWithId = createTask.bind(null, columnId);
@@ -41,32 +42,25 @@ const Form = ({ columnId, taskData }: FormProps) => {
     }
   );
 
-  console.log("task data", taskData);
-
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: taskData
-      ? {
-          title: taskData.title,
-          description: taskData.description as string,
-          status: taskData.status,
-          subtasks: taskData.subtasks,
-        }
-      : {
-          title: "",
-          description: "",
-          status: "Todo",
-          subtasks: [{ title: "", isCompleted: false }],
-        },
+    defaultValues: {
+      title: taskData ? taskData.title : "",
+      description: taskData ? (taskData.description as string) : "",
+      status: taskData ? taskData.status : "Todo",
+      subtasks: taskData
+        ? taskData.subtasks
+        : [{ title: "", isCompleted: false }],
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "subtasks",
   });
-  const lighTheme = useAppSelector((state) => state.theme.lightTheme);
+
   const options = [
     { id: 1, title: "Todo" },
     { id: 2, title: "Doing" },
