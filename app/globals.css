@@ -13,9 +13,9 @@
 }
 
 @layer components {
-  .sidebar {
+  /* .sidebar {
     transition: transform 500ms ease-in-out;
-  }
+  } */
   .active {
     background-color: #635fc7;
     padding-block: 14px;
