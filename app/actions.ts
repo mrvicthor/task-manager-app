@@ -261,7 +261,7 @@ export async function updateBoard(boardId: number, data: FormFields) {
       (existingColumn: Column) =>
         !data.columns?.some((column) => column.id === existingColumn.id)
     )
-    .map((column) => column.id);
+    .map((column: Column) => column.id);
 
   // Create an array of Prisma operations to update existing columns or create new ones
   const updateOrCreateOperations: Prisma.PrismaPromise<any>[] = data.columns
