@@ -4,9 +4,9 @@ import { Subtask } from "@prisma/client";
 import { Task as List } from "@/lib/models";
 import { Droppable } from "@hello-pangea/dnd";
 // import { StatusCircle, TaskClient, Task } from "@/components";
-import StatusCircle from "../../../../components/StatusCircle";
-import TaskClient from "../../../../components/TaskClient";
-import Task from "../../../../components/Task";
+import StatusCircle from "../StatusCircle";
+import TaskClient from "../TaskClient";
+import Task from "../Task";
 import { setColumnType } from "@/lib/features/board/boardSlice";
 import { useDispatch } from "react-redux";
 

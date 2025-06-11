@@ -1,5 +1,5 @@
 import getData from "@/lib/tasks";
-import ListContainer from "./_components/ListContainer";
+import ListContainer from "../../../components/shared/ListContainer";
 
 const BoardDetails = async ({ params }: { params: { boardId: string } }) => {
   const { board, sortedColumns, subtasks } = await getData(

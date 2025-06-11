@@ -1,4 +1,4 @@
-import StatusCircle from "../../../../components/StatusCircle";
+import StatusCircle from "../StatusCircle";
 import { Task } from "@prisma/client";
 
 interface ListHeaderProps {
