@@ -7,6 +7,9 @@ import { revalidatePath } from "next/cache";
 import { Task } from "@/lib/models";
 import { FormFields } from "@/components/UseBoardForm";
 import { Prisma } from "@prisma/client";
+
+type Column = { id: number; name: string; boardId: number };
+
 export type FormState = {
   message: string;
 };
@@ -255,7 +258,7 @@ export async function updateBoard(boardId: number, data: FormFields) {
   // Find columns to delete
   const columnIdsToDelete = existingColumns
     .filter(
-      (existingColumn) =>
+      (existingColumn: Column) =>
         !data.columns?.some((column) => column.id === existingColumn.id)
     )
     .map((column) => column.id);
